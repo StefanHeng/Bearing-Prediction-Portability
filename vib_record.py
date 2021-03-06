@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+
 import h5py
 import json
 
@@ -11,19 +14,32 @@ class VibRecord:
     """
     def __init__(self, path=FEAT_PATH):
         self.record = h5py.File(path, 'r')
-        self.feat_map = json.loads(self.record.attrs['feat_map'])
+        self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
+        self.FEAT_DISP_NMS = json.loads(self.record.attrs['feat_disp_nms'])
         # List of bearing training test; Use as indices into h5 file
-        self.brg_nms = json.loads(self.record.attrs['brg_nms'])
-        # ic(self.feat_map, self.brg_nms)
+        self.BRG_NMS = json.loads(self.record.attrs['brg_nms'])
+        self.NUMS_MSR = json.loads(self.record.attrs['nums_msr'])  # Number of measurement for each bearing by index
+        # ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.BRG_NMS, self.NUMS_MSR)
 
-    def get_feature_series(self, idx_brg, prop='rms_time', acc='hori'):
+    def get_feature_series(self, idx_brg, feat='rms_time', acc='hori'):
         """
-        :param prop: The feature/property in question
+        :param feat: The feature/property in question
         :param idx_brg: The bearing test specified by index
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time
         """
-        # ic(list(self.record.keys()))
-        # ic(self.record[self.brg_nms[idx_brg]])
-        # ic([nm for nm in self.record])
-        return self.record[f'{self.brg_nms[idx_brg]}/{acc}'][self.feat_map[prop]]
+        return self.record[f'{self.BRG_NMS[idx_brg]}/{acc}'][self.FEAT_STOR_IDXS[feat]]
+
+    @staticmethod
+    def get_time_axis(strt, end, inc=10):
+        """
+        :param strt: Index corresponding to start time by multiplying inc
+        :param end: Index corresponding to end time by multiplying inc
+        :param inc: Difference between 2 consecutive time stamps, in minutes
+        :return: Inclusive-exclusive pandas time stamps
+
+        .. note:: Time stamps are with respect to epoch time, since plotting libraries don't support plotting `timedelta`s
+        """
+        x = np.arange(strt, end) * inc
+        return pd.to_datetime(pd.Series(x), unit='m')
+

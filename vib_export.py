@@ -78,9 +78,11 @@ class VibExport:
         fl_nm = f'data/{fl_nm}.hdf5'
         open(fl_nm, 'a').close()  # Create file in OS
         fl = h5py.File(fl_nm, 'w')
-        fl.attrs['feat_map'] = json.dumps(self.ENC_FEAT_STOR)
+        fl.attrs['feat_stor_idxs'] = json.dumps(self.ENC_FEAT_STOR)
         fl.attrs['brg_nms'] = json.dumps(self.FLDR_NMS)
-        # ic(fl.attrs.keys())
+        fl.attrs['nums_msr'] = json.dumps(self.NUMS_FL)
+        fl.attrs['feat_disp_nms'] = json.dumps({idx: nm for idx, nm in enumerate(extr.D_PROP_FUNC)})
+        print(f'Metadata attributes created: {list(fl.attrs.keys())}')
         for idx_brg, test_nm in enumerate(self.FLDR_NMS):
             group = fl.create_group(test_nm)
             for acc in ['hori', 'vert']:
