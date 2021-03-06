@@ -14,8 +14,8 @@ if __name__ == '__main__':
     extr = VibExtract()
     n = 0
     idx_brg = 0
-    series = exp.get_feature_series(idx_brg, extr.rms_time)
-    ic(series)
+    # series = exp.get_feature_series(idx_brg, extr.rms_time)
+    # ic(series)
 
     fl_nm = 'test-lang.hdf5'
     open(fl_nm, 'w').close()
@@ -34,6 +34,15 @@ if __name__ == '__main__':
     # m = json.loads(f.attrs['property_map'])
     # ic(m)
     test1 = f.create_group(exp.FLDR_NMS[0])
-    data_h = test1.create_dataset('hori', data=series)
-    ic(data_h.name)
-    ic(f[data_h.name][:10])
+    # data_h = test1.create_dataset('hori', data=series)
+    # ic(data_h.name)
+    # ic(f[data_h.name][:10])
+    for i in ['a', 'b', 'c']:
+        g = f.create_group(i)
+        g.create_dataset('i', data=np.arange(2))
+        g.create_dataset('ii', data=np.arange(3))
+    ic([nm for nm in f])
+    ic(f['a'].keys())
+    ic(f['a']['i'])
+    arr = f['a']['i'][:]
+    ic(arr)

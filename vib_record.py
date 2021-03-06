@@ -14,7 +14,7 @@ class VibRecord:
         self.feat_map = json.loads(self.record.attrs['feat_map'])
         # List of bearing training test; Use as indices into h5 file
         self.brg_nms = json.loads(self.record.attrs['brg_nms'])
-        ic(self.feat_map, self.brg_nms)
+        # ic(self.feat_map, self.brg_nms)
 
     def get_feature_series(self, idx_brg, prop='rms_time', acc='hori'):
         """
@@ -23,5 +23,7 @@ class VibRecord:
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time
         """
-        # idxs = np.arange(self.NUMS_FL[idx_brg])
-        # return np.vectorize(lambda i: func_extr(self.get_vib_values(i, idx_brg, acc)))(idxs)
+        # ic(list(self.record.keys()))
+        # ic(self.record[self.brg_nms[idx_brg]])
+        # ic([nm for nm in self.record])
+        return self.record[f'{self.brg_nms[idx_brg]}/{acc}'][self.feat_map[prop]]

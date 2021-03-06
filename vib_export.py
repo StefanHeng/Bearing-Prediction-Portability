@@ -80,7 +80,7 @@ class VibExport:
         fl = h5py.File(fl_nm, 'w')
         fl.attrs['feat_map'] = json.dumps(self.ENC_FEAT_STOR)
         fl.attrs['brg_nms'] = json.dumps(self.FLDR_NMS)
-        ic(fl.attrs.keys())
+        # ic(fl.attrs.keys())
         for idx_brg, test_nm in enumerate(self.FLDR_NMS):
             group = fl.create_group(test_nm)
             for acc in ['hori', 'vert']:
@@ -89,4 +89,5 @@ class VibExport:
                 ])
                 ic(arr_extr.shape)
                 group.create_dataset(acc, data=arr_extr)
+                # ic(list(fl.keys()), list(fl[test_nm].keys()))
         print(f'Features extracted: {[nm for nm in fl]}')
