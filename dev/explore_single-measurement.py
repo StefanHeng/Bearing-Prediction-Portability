@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 
 from icecream import ic
 
-from vib_export import VibExp
+from vib_export import VibExport
 
 
 if __name__ == '__main__':
-    exp = VibExp()
+    exp = VibExport()
     ic(exp.NUMS_FL)
     idx_brg = 0
     vals = exp.get_vib_values(0, idx_brg)

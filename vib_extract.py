@@ -3,12 +3,12 @@ from scipy.fft import fft, fftfreq
 from scipy.stats import kurtosis as kurt, skew
 from scipy.signal import periodogram
 
-from icecream import ic
+# from icecream import ic
 
-from vib_export import VibExp
+from femto_attrs import *
 
 
-class VibExtr:
+class VibExtract:
     """ Feature extraction function library on vibration signals
 
     Given vibration samples of `np.ndarray`, VibExtr supports the following properties on the first axis,
@@ -19,13 +19,13 @@ class VibExtr:
     In frequency domain: RMS, Frequency with max amplitude, Mean, Rotating frequency
     """
 
-    def __init__(self, num_data=VibExp.N_SPL, fqs=VibExp.SPL_RT):
+    def __init__(self, num_data=N_SPL, fqs=SPL_RT):
         """
         :param num_data: Number of observations for a single data file
         """
         self.N_DATA = num_data
         self.FQS = fqs
-        self.D_PROP = {  # Dictionary of all functions on property
+        self.D_PROP_FUNC = {  # Dictionary of all functions on property
             'RMS in time': self.rms_time,
             'Range in time': self.range_time,
             'Kurtosis in time': self.kurtosis,

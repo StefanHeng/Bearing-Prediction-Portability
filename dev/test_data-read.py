@@ -1,8 +1,8 @@
 from icecream import ic
 
-from vib_export import VibExp
+from vib_export import VibExport
 
 
 if __name__ == '__main__':
-    rec = VibExp()
+    rec = VibExport()
     ic(rec.NUMS_FL)
