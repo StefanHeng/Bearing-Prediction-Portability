@@ -11,7 +11,7 @@ if __name__ == '__main__':
     exp = VibExport()
     ic(exp.NUMS_FL)
     idx_brg = 0
-    vals = exp.get_vib_values(0, idx_brg)
+    vals = exp.get_single_measurement(0, idx_brg).to_numpy()
     ic(vals)
     vals_hori = vals[:, -2]
     vals_vert = vals[:, -1]
@@ -19,8 +19,10 @@ if __name__ == '__main__':
     ic(vals_hori, vals_vert)
 
     plt.figure(figsize=(18, 6))
-    plt.plot(np.arange(l), vals_hori)
-    plt.plot(np.arange(l), vals_vert)
+    plt.plot(np.arange(l), vals_hori, label='Horizontal acceleration')
+    plt.plot(np.arange(l), vals_vert, label='Vertical acceleration')
+    plt.legend(loc=0)
+    plt.savefig('Explore single measurement.png', dpi=300)
     plt.show()
 
     ic(np.max(vals_hori) - np.min(vals_hori))

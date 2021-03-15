@@ -51,6 +51,10 @@ class VibExport:
             nums.append(num)
         return nums
 
+    def get_single_measurement(self, n, idx_brg):
+        fl_nm = f'{DATA_PATH}{self.FLDR_NMS[idx_brg]}/acc_{n+1:05}.csv'
+        return pd.read_csv(fl_nm, header=None)
+
     def get_vib_values(self, n, idx_brg, acc='hori'):
         """
         :param n: 0-indexed measurement number, by sequential time

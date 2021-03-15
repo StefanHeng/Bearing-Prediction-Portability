@@ -20,6 +20,8 @@ class VibRecord:
         self.BRG_NMS = json.loads(self.record.attrs['brg_nms'])
         self.NUMS_MSR = json.loads(self.record.attrs['nums_msr'])  # Number of measurement for each bearing by index
         # ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.BRG_NMS, self.NUMS_MSR)
+        self.NUM_BRG_TST = len(self.BRG_NMS)
+        self.NUM_FEAT = len(self.FEAT_STOR_IDXS)
 
     def get_feature_series(self, idx_brg, feat='rms_time', acc='hori'):
         """
@@ -28,6 +30,10 @@ class VibRecord:
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time
         """
+        if acc == 'v':
+            acc = 'vert'
+        elif acc == 'h':
+            acc = 'hori'
         return self.record[f'{self.BRG_NMS[idx_brg]}/{acc}'][self.FEAT_STOR_IDXS[feat]]
 
     @staticmethod
@@ -35,11 +41,12 @@ class VibRecord:
         """
         :param strt: Index corresponding to start time by multiplying inc
         :param end: Index corresponding to end time by multiplying inc
-        :param inc: Difference between 2 consecutive time stamps, in minutes
+        :param inc: Difference between 2 consecutive time stamps, in seconds
         :return: Inclusive-exclusive pandas time stamps
 
-        .. note:: Time stamps are with respect to epoch time, since plotting libraries don't support plotting `timedelta`s
+        .. note:: Time stamps are with respect to epoch time,
+        since plotting libraries don't support plotting `timedelta`s
         """
         x = np.arange(strt, end) * inc
-        return pd.to_datetime(pd.Series(x), unit='m')
+        return pd.to_datetime(pd.Series(x), unit='s')
 
