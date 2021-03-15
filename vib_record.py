@@ -15,6 +15,7 @@ class VibRecord:
     def __init__(self, path=FEAT_PATH):
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
+        self.FEAT_NMS = list(self.FEAT_STOR_IDXS.keys())
         self.FEAT_DISP_NMS = json.loads(self.record.attrs['feat_disp_nms'])
         # List of bearing training test; Use as indices into h5 file
         self.BRG_NMS = json.loads(self.record.attrs['brg_nms'])
@@ -30,6 +31,8 @@ class VibRecord:
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time
         """
+        if feat not in self.FEAT_NMS:
+            raise Exception(f'feat={feat} not found: feat has to be in {self.FEAT_NMS}')
         if acc == 'v':
             acc = 'vert'
         elif acc == 'h':
