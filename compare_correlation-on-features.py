@@ -25,10 +25,10 @@ if __name__ == "__main__":
     min_split = 30
     idxs = x[min_split:N - min_split + 1]
 
-    m, b = linregress(x[:1000], vals_time_n[:1000])[:2]
-    ic(t.rmse(x[:1000], vals_time_n[:1000], m, b))
-    m, b = linregress(x[:1000], vals_freq_n[:1000])[:2]
-    ic(t.rmse(x[:1000], vals_freq_n[:1000], m, b))
+    m, b, p = linregress(x[:1000], vals_time_n[:1000])[:3]
+    ic(m, b, p, t.rmse(x[:1000], vals_time_n[:1000], m, b))
+    m, b, p = linregress(x[:1000], vals_freq_n[:1000])[:3]
+    ic(m, b, p, t.rmse(x[:1000], vals_freq_n[:1000], m, b))
 
     corrs_h_t = np.absolute(np.vectorize(lambda idx: pearsonr(x[:idx], vals_time[:idx])[0])(idxs))
     corrs_d_t = np.absolute(np.vectorize(lambda idx: pearsonr(x[idx:], vals_time[idx:])[0])(idxs))

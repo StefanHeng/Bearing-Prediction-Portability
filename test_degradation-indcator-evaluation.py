@@ -10,7 +10,13 @@ from icecream import ic
 if __name__ == "__main__":
     rec = VibRecord()
     t = VibTransfer()
-    # ic(t.degrad_detect_score(rec.get_feature_series(0), plot='RMS in time'))
+    ic(t.degrad_detect_score(rec.get_feature_series(0, feat='rms_time'), plot='RMS in time, bearing 0'))
+    ic(t.degrad_detect_score(rec.get_feature_series(0, feat='mean_freq'), plot='Mean in freq, bearing 0'))
+
+    # C = np.array([1, 2, 1, 2, 1]) / 7
+    # C = np.array([3, 3, 1]) / 7
+    # ic(t.degrad_detect_score(rec.get_feature_series(0, feat='rms_time'), C=C, plot='RMS in time'))
+    # ic(t.degrad_detect_score(rec.get_feature_series(0, feat='mean_freq'), C=C, plot='Mean in freq'))
 
     # ic()
     for idx, feat in enumerate(rec.FEAT_NMS):

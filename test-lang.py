@@ -33,8 +33,8 @@ if __name__ == '__main__':
     # x = y = np.arange(10)
     # ic(polyfit(x, y, 1))
 
-    t = []
-    for i in range(10):
-        t.append(tanh(i))
-    ic(t)
-    ic(np.tanh(np.arange(10)))
+    arr = np.arange(10) / 10
+    for a in arr:
+        ic(a, tanh(a))
+    # ic(t)
+    # ic(np.tanh(np.arange(10)))
