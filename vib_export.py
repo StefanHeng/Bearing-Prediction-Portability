@@ -93,7 +93,5 @@ class VibExport:
                 arr_extr = np.stack([
                     self.get_feature_series(idx_brg, func, acc) for k, func in extr.D_PROP_FUNC.items()
                 ])
-                ic(arr_extr.shape)
                 group.create_dataset(acc, data=arr_extr)
-                # ic(list(fl.keys()), list(fl[test_nm].keys()))
         print(f'Features extracted: {[nm for nm in fl]}')

@@ -10,10 +10,18 @@ from icecream import ic
 if __name__ == "__main__":
     rec = VibRecord()
     t = VibTransfer()
-    for feat in rec.FEAT_NMS:
+    # ic(t.degrad_detect_score(rec.get_feature_series(0), plot='RMS in time'))
+
+    # ic()
+    for idx, feat in enumerate(rec.FEAT_NMS):
         metrics = []
         for i in range(rec.NUM_BRG_TST):
-            metrics.append(t.degrad_diff(rec.get_feature_series(i, feat=feat)))
+            for acc in ['h', 'v']:
+                nm = f'{rec.FEAT_DISP_NMS[str(idx)]} on test {i+1} {acc}'
+                # ic(nm)
+                nm = ''
+                m = t.degrad_detect_score(rec.get_feature_series(i, feat=feat, acc=acc), plot=nm)
+                metrics.append(m)
         m = np.array(metrics).mean()
         ic(feat, m)
-
+    # ic()
