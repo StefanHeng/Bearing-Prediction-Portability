@@ -18,6 +18,7 @@ if __name__ == "__main__":
     t = VibTransfer()
 
     # ic()
+    d_metric = dict()
     for feat in rec.FEAT_DISP_NMS:
         metrics = []
         weights = []
@@ -38,6 +39,10 @@ if __name__ == "__main__":
         weights = np.array(weights)
         m = np.dot(metrics, weights) / num_elm  # test1 and test1 considered single test
         ic(feat, m)
+        d_metric[feat] = m
     # ic()
+
+    d_sorted = dict(sorted(d_metric.items(), key=lambda item: item[1]))
+    ic(d_sorted)
 
 

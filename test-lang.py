@@ -39,5 +39,19 @@ if __name__ == '__main__':
     # ic(t)
     # ic(np.tanh(np.arange(10)))
 
-    a = np.array([])
-    ic(a.mean())
+    # a = np.array([])
+    # ic(a.mean())
+
+    d = {'kurtosis': 0.843158758634883,
+         'mean_freq': 0.7899836006151681,
+         'peak_freq': 0.823076708445556,
+         'range_time': 0.8210213204803845,
+         'rms_freq': 0.7021477539673981,
+         'rms_time': 0.741005034189017,
+         'rot_amp': 0.7417523215995581,
+         'skewness': 0.7787196559142084}
+    l = sorted(d, key=d.get, reverse=True)
+    for feat in l:
+        ic(feat, d[feat])
+
+
