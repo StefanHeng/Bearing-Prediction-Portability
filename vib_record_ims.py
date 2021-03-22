@@ -13,6 +13,14 @@ from ims_attrs import *
 class VibRecordIms:
     """ Reads vibration features extracted over time from `h5` file exported by `VibExp`
     """
+
+    BRGS_FLD = {  # Bearing indices with observed failure for each test
+        0: [2, 3],
+        1: [2, 3],  # Essentially the same test as 0
+        2: [0],
+        3: [2]
+    }
+
     def __init__(self, path=H5FEAT_PATH_IMS):
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
