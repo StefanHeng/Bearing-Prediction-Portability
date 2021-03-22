@@ -1,10 +1,10 @@
-from vib_export import VibExport
+from vib_export import VibExportFEMTO
 from vib_extract import VibExtract
 
 from icecream import ic
 
 if __name__ == '__main__':
-    exp = VibExport()
+    exp = VibExportFEMTO()
     extr = VibExtract()
     n = 0
     idx_brg = 0

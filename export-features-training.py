@@ -1,11 +1,11 @@
 """
-Actually export the FEMTO dataset into h5py
+Actually export the FEMTO dataset into HDF5 format
 """
 
 from icecream import ic
 
-from vib_export import VibExport
+from vib_export import VibExportFEMTO
 
 if __name__ == '__main__':
-    exp = VibExport()
+    exp = VibExportFEMTO()
     exp.export()

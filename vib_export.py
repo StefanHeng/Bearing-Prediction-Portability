@@ -12,11 +12,12 @@ from femto_attrs import *
 from vib_extract import VibExtract
 
 
-class VibExport:
+class VibExportFEMTO:
     """ Handles reading FEMTO vibration dataset in raw and exporting to h5py data record,
     with properties specified in `VibExtr`.
 
-    Each roll bearing's measurement recorded at a time will be 1-dimensional.
+    Each roll bearing's measurement recorded at a time will be 1-dimensional for splitting
+    horizontal and vertical measurements
     """
 
     FLDR_NMS = [  # Maps index of a bearing on training data to the folder name on storage
@@ -40,7 +41,7 @@ class VibExport:
     CD_H = ['h', 'hori']  # Code for horizontal acceleration
 
     def __init__(self):
-        self.NUMS_FL = self._get_num_acc_files()  # Number of acceleration files, the final count for each
+        self.NUMS_MESR = self._get_num_acc_files()  # Number of acceleration measurements, the final count for each
 
     def _get_num_acc_files(self):
         nums = []
@@ -72,7 +73,7 @@ class VibExport:
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time
         """
-        idxs = np.arange(self.NUMS_FL[idx_brg])
+        idxs = np.arange(self.NUMS_MESR[idx_brg])
         return np.vectorize(lambda i: func_extr(self.get_vib_values(i, idx_brg, acc)))(idxs)
 
     def export(self, fl_nm='femto_features_train', num_spl=N_SPL, spl_rt=SPL_RT):
@@ -84,7 +85,7 @@ class VibExport:
         fl = h5py.File(fl_nm, 'w')
         fl.attrs['feat_stor_idxs'] = json.dumps(self.ENC_FEAT_STOR)
         fl.attrs['brg_nms'] = json.dumps(self.FLDR_NMS)
-        fl.attrs['nums_msr'] = json.dumps(self.NUMS_FL)
+        fl.attrs['nums_msr'] = json.dumps(self.NUMS_MESR)
         fl.attrs['feat_disp_nms'] = json.dumps({idx: nm for idx, nm in enumerate(extr.D_PROP_FUNC)})
         print(f'Metadata attributes created: {list(fl.attrs.keys())}')
         for idx_brg, test_nm in enumerate(self.FLDR_NMS):

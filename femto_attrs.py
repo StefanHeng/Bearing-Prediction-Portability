@@ -1,5 +1,5 @@
 """
-Each acceleration file has 0.1s of data every 10 min.
+Each acceleration file has 0.1s of data every 10 second.
 
 References
 ----------

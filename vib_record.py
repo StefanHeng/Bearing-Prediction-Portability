@@ -12,7 +12,7 @@ from dev_link import *
 class VibRecord:
     """ Reads vibration features extracted over time from `h5` file exported by `VibExp`
     """
-    def __init__(self, path=FEAT_PATH):
+    def __init__(self, path=H5FEAT_PATH):
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
         self.FEAT_NMS = list(self.FEAT_STOR_IDXS.keys())
@@ -26,7 +26,7 @@ class VibRecord:
 
     def get_feature_series(self, idx_brg, feat='rms_time', acc='hori'):
         """
-        :param feat: The feature/property in question
+        :param feat: Feature/Property
         :param idx_brg: The bearing test specified by index
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time

@@ -32,7 +32,7 @@ class VibExtract:
             'Skewness in time': self.skewness,
             'RMS in frequency': self.rms_freq,
             'Mean in frequency': self.mean_freq,
-            'Max in frequency': self.peak_freq
+            'Frequency with max amplitude': self.peak_freq
         }
 
     @staticmethod
