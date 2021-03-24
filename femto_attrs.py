@@ -9,3 +9,6 @@ References
 SPL_RT = 25_600  # Sample rate
 NUM_BRG = 6  # Number of roll bearings in training data
 N_SPL = SPL_RT // 10  # 0.1 second of data
+
+# Learned characteristics on the dataset
+FEAT_DGD_ONSET = ['rms_time', 'range_time', 'kurtosis', 'skewness']  # Features fit for detecting degradation onset

@@ -13,3 +13,6 @@ SPL_RT = 20_000  # Sample rate
 NUMS_MESR = [2_156, 984, 6_324]  # The first row for features in the time domain was removed in previous project
 NUM_BRG = 4
 N_SPL = 20_480  # Number of data points in each measurement file
+
+# Learned characteristics on the dataset
+FEAT_DGD_ONSET = ['range_time', 'kurtosis', 'skewness', 'peak_freq']  # Features fit for detecting degradation onset

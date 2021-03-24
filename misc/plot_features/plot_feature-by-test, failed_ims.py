@@ -28,7 +28,7 @@ if __name__ == "__main__":
                 # plt.plot(x, rec.get_feature_series(idx_tst, idx_brg, feat=feat),
                 #          label=f'Bearing {idx_brg + 1}', linewidth=0.125)
                 plt.suptitle(title)
-                ax.xaxis.set_major_formatter(mdates.DateFormatter("%d %H:%M"))
+                ax.xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))
                 plt.savefig(f'plot/{title}.png', dpi=300)
                 plt.close()
                 # plt.show()

@@ -22,7 +22,8 @@ class VibTransfer:
         self.min_split_sz = min_split_sz
         self.norm_fact = norm_fact
 
-    def degrading_detection_fitness(self, data, n=5, C=np.full(NUM_TERM, 1 / NUM_TERM), min_split_sz=MIN_SPILT_SZ,
+    @staticmethod
+    def degrading_detection_fitness(data, n=5, C=np.full(NUM_TERM, 1 / NUM_TERM), min_split_sz=MIN_SPILT_SZ,
                                     plot=None):
         """
         Evaluates how good is a feature to differentiate degradation onset
@@ -51,7 +52,7 @@ class VibTransfer:
             x_d, y_d = x[idx:], data[idx:]
             m_d, b_d, _r_d, p_d = linregress(x_d, y_d)[:4]
             terms = [
-                1 - tanh(self.rmse(x_h, y_h, m_h, b_h)),  # Prefer smaller values
+                1 - tanh(VibTransfer._rmse(x_h, y_h, m_h, b_h)),  # Prefer smaller values
                 p_h,
                 1 - p_d,
                 idx / N
@@ -86,9 +87,16 @@ class VibTransfer:
         return metrics[idxs_max].mean()
 
     @staticmethod
-    def rmse(x, y, m, b):
+    def _rmse(x, y, m, b):
         """ Root mean squared error """
         return np.sqrt(mean_squared_error(y, m * x + b))
+
+    @staticmethod
+    def rmse(vals):
+        """ RMSE against best fit line """
+        x = np.arange(vals.size)
+        m, b = linregress(x, vals)[:2]
+        return VibTransfer._rmse(x, vals, m, b)
 
     @staticmethod
     def mape(x, y, m, b):

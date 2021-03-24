@@ -22,6 +22,8 @@ class VibRecordIms:
         3: [2]
     }
 
+    T_FMT = '%d %H:%M'
+
     def __init__(self, path=H5FEAT_PATH_IMS):
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
@@ -31,7 +33,7 @@ class VibRecordIms:
         # List of bearing training test; Use as indices into h5 file
         self.TST_NMS = json.loads(self.record.attrs['tst_nms'])
         self.NUMS_MSR = json.loads(self.record.attrs['nums_msr'])  # Number of measurement for each bearing by index
-        ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.TST_NMS, self.NUMS_MSR)
+        # ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.TST_NMS, self.NUMS_MSR)
         self.NUM_TST = len(self.TST_NMS)
         self.NUM_BRG = NUM_BRG
         self.NUM_FEAT = len(self.FEAT_STOR_IDXS)

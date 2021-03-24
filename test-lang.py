@@ -57,4 +57,7 @@ if __name__ == '__main__':
     a = np.arange(10)
     ic(a, a.reshape(-1, 1))
 
+    a = np.array([1])
+    ic(a.std())
+
 
