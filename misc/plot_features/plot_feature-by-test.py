@@ -23,6 +23,6 @@ if __name__ == '__main__':
         axs[idx].set_xlabel('time (<Day> <Hour>:<Min>)')
         axs[idx].set_ylabel(rec.FEAT_DISP_NMS[str(idx)])
         axs[idx].xaxis.set_major_formatter(mdates.DateFormatter("%d %H:%M"))
-    plt.savefig(f'plot/Feature selection against time, {acc} bearing {idx_brg+1}.png', dpi=300)
+    plt.savefig(f'plot/Feature selection against time, {acc} bearing {idx_brg + 1}.png', dpi=300)
     plt.show()
 

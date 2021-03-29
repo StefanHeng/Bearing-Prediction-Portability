@@ -54,10 +54,22 @@ if __name__ == '__main__':
     # for feat in l:
     #     ic(feat, d[feat])
 
-    a = np.arange(10)
-    ic(a, a.reshape(-1, 1))
+    # a = np.arange(10)
+    # ic(a, a.reshape(-1, 1))
+    #
+    # a = np.array([1])
+    # ic(a.std())
 
-    a = np.array([1])
-    ic(a.std())
+    a = np.arange(12).astype(np.float16) - 5
+    ic(a.dtype, a)
+    # m = (a < 4) | (a % 2 == 1)
+    # m = (a <= 20) | (a >= 10)
+    # ic(m, type(m), m.sum())
+    idxs = np.where(a <= -3)[0]
+    ic(idxs, type(idxs))
+    ic(a[idxs])
+    idxs2 = np.where(a >= 3)[0]
+    ic(idxs2)
+    ic(np.concatenate([idxs, idxs2]))
 
 

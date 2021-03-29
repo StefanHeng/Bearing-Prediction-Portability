@@ -26,8 +26,7 @@ if __name__ == '__main__':
         axs[idx_brg].plot(x, y, marker='o', markersize=0.5, linewidth=0.125)
         axs[idx_brg].xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))
 
-        # onset = p.degradation_onset_prev(y)  #  Previous approach
-        onset = p.degradation_onset(y)  # Updated
+        onset = p.degradation_onset_normal(y)
         ic(idx_brg, onset)
         if onset != -1:
             axs[idx_brg].axvline(x=x[onset], color='r', label='Detected degradation onset', linewidth=0.5)
