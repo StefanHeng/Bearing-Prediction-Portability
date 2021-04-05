@@ -25,6 +25,15 @@ config = dict(
         # Features fit for degradation detection
         degrading_indicators=['rms_time', 'range_time', 'kurtosis', 'skewness'],
         onset_truth=onset_truth
+    ),
+    ims=dict(
+        degrading_indicators=['kurtosis', 'skewness', 'range_time', 'peak_freq'],
+        prev_hyperparameters=dict(  # Selected for final output in previous project
+            kurtosis=dict(sz_base=100, sz_window=30, z=3),
+            skewness=dict(sz_base=100, sz_window=15, z=3),
+            range_time=dict(sz_base=100, sz_window=30, z=5),
+            peak_freq=dict(sz_base=100, sz_window=25, z=5)  # Only the upperbound is checked for detection
+        )
     )
 )
 

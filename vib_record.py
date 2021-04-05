@@ -18,6 +18,7 @@ class VibRecord:
     def __init__(self, path=H5FEAT_PATH):
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
+        del self.FEAT_STOR_IDXS['rot_amp']
         self.FEAT_NMS = list(self.FEAT_STOR_IDXS.keys())
         config = open('config.json', 'r')
         self.FEAT_DISP_NMS = json.load(config)['feat_disp_nms']

@@ -87,6 +87,15 @@ class VibTransfer:
         return metrics[idxs_max].mean()
 
     @staticmethod
+    def degrading_detection_fitness2(data, min_split_sz=MIN_SPILT_SZ):
+        data = (data - data.mean()) / data.std()
+        N = data.size
+        x = np.arange(N)
+        idxs = x[min_split_sz:N - min_split_sz + 1]
+
+
+
+    @staticmethod
     def _rmse(x, y, m, b):
         """ Root mean squared error """
         return np.sqrt(mean_squared_error(y, m * x + b))

@@ -17,7 +17,7 @@ class VibPredict:
     MIN_SZ_BASE = 100
 
     @staticmethod
-    def degradation_onset_prev(series, sz_base=100, sz_window=30, z=3):
+    def degradation_onset_prev_(series, sz_base=100, sz_window=30, z=3):
         """
         Degradation onset defined by the first devidation of mean of a moving window starting from sz_base, from
         the range (mean ± z * std) of all previous data, staring from initial batch of size sz_base
@@ -145,6 +145,10 @@ class VibPredict:
         sz_base = int(max(series.size * frac_sz_base, min_sz_base))
         _, series = VibPredict.sliding_means(series, 4)
         return VibPredict.degradation_onset_normal_continuous_squash(series, sz_base, sz_window, z, t, toler)
+
+    def degradation_onset_prev(self, series, verbose=False):
+        """ Given a 2D array where each array is a degrading indicator values,
+        degradation onset is defined by the first time when *all* health indicators starts degrading """
 
     @staticmethod
     def sliding_means(arr, sz_window=30):
