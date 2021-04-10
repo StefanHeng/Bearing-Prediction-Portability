@@ -1,1 +1,151 @@
-{"feat_disp_nms": {"rms_time": "RMS in time", "range_time": "Range in time", "kurtosis": "Kurtosis in time", "skewness": "Skewness in time", "rms_freq": "RMS in frequency", "mean_freq": "Mean in frequency", "peak_freq": "Frequency with max amplitude", "rot_amp": "Amplitude at rotating frequency"}, "femto": {"degrading_indicators": ["rms_time", "range_time", "kurtosis", "skewness"], "onset_truth": [2592, 824, 849, 752, 489, 1432]}, "ims": {"degrading_indicators": ["kurtosis", "skewness", "range_time", "peak_freq"], "prev_hyperparameters": {"kurtosis": {"sz_base": 100, "sz_window": 30, "z": 3}, "skewness": {"sz_base": 100, "sz_window": 15, "z": 3}, "range_time": {"sz_base": 100, "sz_window": 30, "z": 5}, "peak_freq": {"sz_base": 100, "sz_window": 25, "z": 5}}}}
+{
+    "feat_disp_nms": {
+        "rms_time": "RMS in time",
+        "range_time": "Range in time",
+        "kurtosis": "Kurtosis in time",
+        "skewness": "Skewness in time",
+        "rms_freq": "RMS in frequency",
+        "mean_freq": "Mean in frequency",
+        "peak_freq": "Frequency with max amplitude",
+        "rot_amp": "Amplitude at rotating frequency"
+    },
+    "femto": {
+        "sample_rate": 25600,
+        "num_bearings": 6,
+        "num_samples": 2560,
+        "degrading_indicators": [
+            "rms_time",
+            "range_time",
+            "kurtosis",
+            "skewness"
+        ],
+        "onset_truth": [
+            2592,
+            824,
+            849,
+            752,
+            489,
+            1432
+        ]
+    },
+    "ims": {
+        "sample_rate": 20000,
+        "num_bearings": 4,
+        "num_measurements": [
+            2156,
+            984,
+            6324
+        ],
+        "num_samples": 20480,
+        "bearings_failed": {
+            "0": [
+                2,
+                3
+            ],
+            "1": [
+                0
+            ],
+            "2": [
+                2
+            ]
+        },
+        "degrading_indicators": [
+            "kurtosis",
+            "skewness",
+            "range_time",
+            "peak_freq"
+        ],
+        "prev_hyperparameters": {
+            "kurtosis": {
+                "sz_base": 100,
+                "sz_window": 30,
+                "z": 3
+            },
+            "skewness": {
+                "sz_base": 100,
+                "sz_window": 15,
+                "z": 3
+            },
+            "range_time": {
+                "sz_base": 100,
+                "sz_window": 30,
+                "z": 5
+            },
+            "peak_freq": {
+                "sz_base": 100,
+                "sz_window": 25,
+                "z": 5
+            }
+        },
+        "prev_onsets": {
+            "0": {
+                "2": 1980,
+                "3": 1980
+            },
+            "1": {
+                "0": 780
+            },
+            "2": {
+                "2": 6138
+            }
+        },
+        "prev_onsets_detected_by_feature": {
+            "0": {
+                "2": {
+                    "kurtosis": 1797,
+                    "peak_freq": 170,
+                    "range_time": 1814,
+                    "skewness": 1816
+                },
+                "3": {
+                    "kurtosis": 233,
+                    "peak_freq": 1348,
+                    "range_time": 1425,
+                    "skewness": 1457
+                }
+            },
+            "1": {
+                "2": {
+                    "kurtosis": 1805,
+                    "peak_freq": -1,
+                    "range_time": 1818,
+                    "skewness": -1
+                },
+                "3": {
+                    "kurtosis": 1599,
+                    "peak_freq": 100,
+                    "range_time": 1600,
+                    "skewness": -1
+                }
+            },
+            "2": {
+                "0": {
+                    "kurtosis": 630,
+                    "peak_freq": 647,
+                    "range_time": 682,
+                    "skewness": 710
+                }
+            },
+            "3": {
+                "2": {
+                    "kurtosis": 6140,
+                    "peak_freq": 6235,
+                    "range_time": 6143,
+                    "skewness": 6076
+                }
+            }
+        },
+        "prev_onsets_detected": {
+            "0": {
+                "2": 1816,
+                "3": 1457
+            },
+            "2": {
+                "0": 710
+            },
+            "3": {
+                "2": 6235
+            }
+        }
+    }
+}

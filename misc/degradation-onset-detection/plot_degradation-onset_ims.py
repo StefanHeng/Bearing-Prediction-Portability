@@ -17,6 +17,7 @@ if __name__ == '__main__':
 
     indicators_degrading = config('ims.degrading_indicators')
     params = config('ims.prev_hyperparameters')
+    onsets = dict()
 
     ic(indicators_degrading, params)
     for idx_tst in range(rec.NUM_TST):
@@ -31,17 +32,26 @@ if __name__ == '__main__':
                 y = rec.get_feature_series(idx_tst, idx_brg, feat=feat)
                 axs[idx].plot(x, y, marker='o', markersize=0.5, linewidth=0.125)
 
-                onset = p.degradation_onset_prev_(y, **params[feat])
+                onset = p.degradation_onset_prev_(y, prev_tuned=feat)
                 if onset != -1:
                     axs[idx].axvline(x=x[onset], color='r', label='Degradation onset detected', linewidth=0.5)
 
+                ic(idx_tst, idx_brg, feat, onset)
+                if idx_tst not in onsets:
+                    onsets[idx_tst] = dict()
+                if idx_brg not in onsets[idx_tst]:
+                    onsets[idx_tst][idx_brg] = dict()
+                onsets[idx_tst][idx_brg][feat] = onset
+
                 axs[idx].xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))
-                axs[idx].set_title(f'{feat_disp}, bearing {idx_brg+1}')
+                axs[idx].set_title(f'{feat_disp}, failed bearing {idx_brg+1}')
         plt.legend()
 
-        title = f'Degradation onset previous method, test {idx_tst + 1}'
+        title = f'Degradation onset previous method with tuned hyperparameters, test {idx_tst + 1}'
         plt.suptitle(title)
         ic(title)
         plt.savefig(f'plot/{title}', dpi=300)
         # plt.show()
+
+    ic(onsets)
 

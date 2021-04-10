@@ -3,6 +3,7 @@ import numpy as np
 from math import tanh
 
 from vib_transfer import VibTransfer
+from util import *
 
 from icecream import ic
 
@@ -16,8 +17,11 @@ class VibPredict:
     FRAC_SZ_BASE = 1 / 5
     MIN_SZ_BASE = 100
 
-    @staticmethod
-    def degradation_onset_prev_(series, sz_base=100, sz_window=30, z=3):
+    def __init__(self):
+        self.params_prev = config('ims.prev_hyperparameters')
+        ic(self.params_prev)
+
+    def degradation_onset_prev_(self, series, sz_base=100, sz_window=30, z=3, prev_tuned=None):
         """
         Degradation onset defined by the first devidation of mean of a moving window starting from sz_base, from
         the range (mean ± z * std) of all previous data, staring from initial batch of size sz_base
@@ -27,9 +31,17 @@ class VibPredict:
         :param sz_window: Size of the window to compute mean for checking out of range
         :param z: The number of std away from mean to compute indicator range considered healthy
         :return: The index relative to input measurement array for degradation onset, -1 if degradation onset not found
+        :param prev_tuned: If a feature specified, use previously tuned hyper-parameters.
+        Only applicable if the feature was selected in previous project
 
         .. note:: Assumes degradation would occur
         """
+        if prev_tuned in self.params_prev:
+            d = self.params_prev[prev_tuned]
+            sz_base = d['sz_base']
+            sz_window = d['sz_window']
+            z = d['z']
+            # ic(prev_tuned, sz_base, sz_window, z)
         for idx in range(sz_base, series.size - 1):  # Array at the end would have size of 1
             m_prev = series[:idx].mean()
             std_prev = series[:idx].std()
@@ -43,7 +55,7 @@ class VibPredict:
         sz_base = int(max(series.size * frac_sz_base, min_sz_base))
         # z = VibPredict._dynamic_z_limit(series, frac_sz_base, min_sz_base)
         # ic(z)
-        return VibPredict.degradation_onset_prev(series, sz_base=sz_base, sz_window=sz_window, z=z)
+        return VibPredict.degradation_onset_prev_(series, sz_base=sz_base, sz_window=sz_window, z=z)
 
     @staticmethod
     def _dynamic_z_limit(series, frac_sz_base=FRAC_SZ_BASE, min_sz_base=MIN_SZ_BASE):
