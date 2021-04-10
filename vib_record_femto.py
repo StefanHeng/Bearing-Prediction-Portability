@@ -7,9 +7,10 @@ import json
 from icecream import ic
 
 from dev_link import *
+from util import *
 
 
-class VibRecord:
+class VibRecordFemto:
     """ Reads vibration features extracted over time from `h5` file exported by `VibExp`
     """
 
@@ -19,8 +20,7 @@ class VibRecord:
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
         self.FEAT_NMS = list(self.FEAT_STOR_IDXS.keys())
-        config = open('config.json', 'r')
-        self.FEAT_DISP_NMS = json.load(config)['feat_disp_nms']
+        self.FEAT_DISP_NMS = config('feature_display_names')
         del self.FEAT_DISP_NMS['rot_amp']
         # List of bearing training test; Use as indices into h5 file
         self.BRG_NMS = json.loads(self.record.attrs['brg_nms'])
@@ -60,4 +60,3 @@ class VibRecord:
         else:
             x = np.arange(strt, end)
         return pd.to_datetime(pd.Series(x * inc), unit='s')
-

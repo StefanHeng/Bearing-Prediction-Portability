@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 
 from icecream import ic
 
-from vib_export import VibExportFEMTO
+from vib_export_femto import VibExportFemto
 
 
 if __name__ == '__main__':
-    exp = VibExportFEMTO()
+    exp = VibExportFemto()
     ic(exp.NUMS_MESR)
     idx_brg = 0
     vals = exp.get_single_measurement(0, idx_brg).to_numpy()

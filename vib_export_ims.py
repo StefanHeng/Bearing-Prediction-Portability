@@ -5,7 +5,7 @@ import h5py
 import json
 
 from dev_link import *
-from ims_attrs import *
+from util import *
 
 from icecream import ic
 
@@ -67,14 +67,14 @@ class VibExportIms:
         open(fl_nm, 'a').close()  # Create file in OS
         fl = h5py.File(fl_nm, 'w')
         fl.attrs['feat_stor_idxs'] = json.dumps(self.ENC_FEAT_STOR)
-        fl.attrs['nums_msr'] = json.dumps(NUMS_MESR)
+        fl.attrs['nums_msr'] = json.dumps(config('ims.num_measurements'))
         tst_nms = []
         for (idx_tst, tst_nm) in [(0, '/ch1'), (1, '/ch2'), (2, ''), (3, '')]:
             i_tst = max(idx_tst - 1, 0)  # To be compatible with `get_feature_series`
             tst_nm = f'test{i_tst+1}{tst_nm}'
             tst_nms.append(tst_nm)
             group = fl.create_group(tst_nm)
-            idxs_brg = list(range(NUM_BRG))
+            idxs_brg = list(range(config('ims.num_bearings')))
             # if idx_tst == 0:
             #     idxs_brg = [i * 2 for i in idxs_brg]
             # elif idx_tst == 1:

@@ -3,10 +3,10 @@ import matplotlib.dates as mdates
 
 from icecream import ic
 
-from vib_record import VibRecord
+from vib_record_femto import VibRecordFemto
 
 if __name__ == '__main__':
-    rec = VibRecord()
+    rec = VibRecordFemto()
     idx_brg = 0  # On 1st test, look at horizontal vibration
     acc = 'hori'
 

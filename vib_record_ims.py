@@ -8,7 +8,7 @@ import json
 from icecream import ic
 
 from dev_link import *
-from ims_attrs import *
+from util import *
 
 
 class VibRecordIms:
@@ -28,14 +28,14 @@ class VibRecordIms:
         self.record = h5py.File(path, 'r')
         self.FEAT_STOR_IDXS = json.loads(self.record.attrs['feat_stor_idxs'])
         self.FEAT_NMS = list(self.FEAT_STOR_IDXS.keys())
-        config = open('config.json', 'r')
-        self.FEAT_DISP_NMS = json.load(config)['feat_disp_nms']
+        # config = open('config.json', 'r')
+        self.FEAT_DISP_NMS = config('feature_display_names')
         # List of bearing training test; Use as indices into h5 file
         self.TST_NMS = json.loads(self.record.attrs['tst_nms'])
         self.NUMS_MSR = json.loads(self.record.attrs['nums_msr'])  # Number of measurement for each bearing by index
         ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.TST_NMS, self.NUMS_MSR)
         self.NUM_TST = len(self.TST_NMS)
-        self.NUM_BRG = NUM_BRG
+        self.NUM_BRG = config('ims.num_bearings')
         self.NUM_FEAT = len(self.FEAT_STOR_IDXS)
 
     def get_feature_series(self, idx_tst, idx_brg, feat='rms_time'):

@@ -8,11 +8,10 @@ import json
 from icecream import ic
 
 from dev_link import *
-from femto_attrs import *
 from vib_extract import VibExtract
 
 
-class VibExportFEMTO:
+class VibExportFemto:
     """ Handles reading FEMTO vibration dataset in raw and exporting to h5py data record,
     with properties specified in `VibExtr`.
 

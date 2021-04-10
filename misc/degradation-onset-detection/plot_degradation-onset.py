@@ -4,7 +4,7 @@ import matplotlib.dates as mdates
 import os
 from icecream import ic
 
-from vib_record import VibRecord
+from vib_record_femto import VibRecordFemto
 # from vib_record_ims import VibRecordIms
 from vib_predict import VibPredict
 
@@ -12,7 +12,7 @@ os.chdir('../..')
 
 
 if __name__ == '__main__':
-    rec = VibRecord()
+    rec = VibRecordFemto()
     p = VibPredict()
 
     # feat = 'kurtosis'

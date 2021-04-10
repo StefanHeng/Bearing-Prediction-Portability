@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 
 from scipy.stats import pearsonr
 
-from vib_record import VibRecord
+from vib_record_femto import VibRecordFemto
 from vib_transfer import VibTransfer
 
 from icecream import ic
 
 if __name__ == "__main__":
-    rec = VibRecord()
+    rec = VibRecordFemto()
     t = VibTransfer()
     k = 400
     # ic(t.degrad_detect_score(rec.get_feature_series(0), plot='RMS in time'))

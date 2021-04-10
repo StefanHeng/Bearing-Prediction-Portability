@@ -1,5 +1,5 @@
 {
-    "feat_disp_nms": {
+    "feature_display_names": {
         "rms_time": "RMS in time",
         "range_time": "Range in time",
         "kurtosis": "Kurtosis in time",

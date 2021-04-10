@@ -8,6 +8,7 @@ References
         IMS, University of Cincinnati. "Bearing Data Set", NASA Ames Prognostics Data Repository
         (http://ti.arc.nasa.gov/project/prognostic-data-repository), NASA Ames Research Center, Moffett Field, CA
 
+
 The FEMTO dataset
 Each acceleration file has 0.1s of data every 10 second.
 
@@ -32,7 +33,7 @@ onset_truth_hr_femto = [  # Rough ground truth as measurement index, through man
 onset_truth_femto = [int(i * 6 * 60) for i in onset_truth_hr_femto]  # Number of measurements per hour
 
 config = dict(
-    feat_disp_nms=dict(
+    feature_display_names=dict(
         rms_time='RMS in time',
         range_time='Range in time',
         kurtosis='Kurtosis in time',

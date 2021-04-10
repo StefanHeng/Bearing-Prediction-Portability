@@ -30,6 +30,9 @@ if __name__ == '__main__':
                 feat_disp = rec.FEAT_DISP_NMS[feat]
                 x = rec.get_time_axis(idx_tst=idx_tst)
                 y = rec.get_feature_series(idx_tst, idx_brg, feat=feat)
+                if idx_tst == 0:
+                    x = x[1:]
+                    y = y[1:]
                 axs[idx].plot(x, y, marker='o', markersize=0.5, linewidth=0.125)
 
                 onset = p.degradation_onset_prev_(y, prev_tuned=feat)

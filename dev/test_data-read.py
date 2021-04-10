@@ -1,8 +1,8 @@
 from icecream import ic
 
-from vib_export import VibExportFEMTO
+from vib_export_femto import VibExportFemto
 
 
 if __name__ == '__main__':
-    rec = VibExportFEMTO()
+    rec = VibExportFemto()
     ic(rec.NUMS_MESR)

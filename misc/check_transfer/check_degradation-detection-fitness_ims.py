@@ -2,7 +2,7 @@ import numpy as np
 
 import os
 
-from vib_record import VibRecord
+from vib_record_femto import VibRecordFemto
 from vib_record_ims import VibRecordIms
 from vib_transfer import VibTransfer
 

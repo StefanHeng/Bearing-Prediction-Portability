@@ -3,7 +3,7 @@ import numpy as np
 import os
 from icecream import ic
 
-from vib_record import VibRecord
+from vib_record_femto import VibRecordFemto
 from vib_record_ims import VibRecordIms
 from vib_transfer import VibTransfer
 
@@ -12,7 +12,7 @@ os.chdir('../..')
 
 
 if __name__ == "__main__":
-    rec = VibRecord()
+    rec = VibRecordFemto()
     t = VibTransfer()
     # ic(t.degrading_detection_fitness(rec.get_feature_series(0, feat='rms_time'), plot='RMS in time, bearing 0'))
     # ic(t.degrading_detection_fitness(rec.get_feature_series(0, feat='mean_freq'), plot='Mean in freq, bearing 0'))

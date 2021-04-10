@@ -6,11 +6,11 @@ import os
 
 from icecream import ic
 
-from vib_export import VibExportFEMTO
+from vib_export_femto import VibExportFemto
 from vib_extract import VibExtract
 
 if __name__ == '__main__':
-    exp = VibExportFEMTO()
+    exp = VibExportFemto()
     extr = VibExtract()
     n = 0
     idx_brg = 0
