@@ -18,22 +18,10 @@ References
         (http://ti.arc.nasa.gov/project/prognostic-data-repository), NASA Ames Research Center, Moffett Field, CA
 """
 
-# Respectively for 1-indexed [Test1 Bearing 3, Test1 Bearing 4, Test2 Bearing 1, Test3 Bearing 3]
-onsets_hr_ims_prev = [330, 330, 130, 1023]  # Output of previous method
-onsets_ims_prev = [i * 6 for i in onsets_hr_ims_prev]  # 10 minutes interval per measurement
+from icecream import ic
+from copy import deepcopy
 
-onset_truth_hr_femto = [  # Rough ground truth as measurement index, through manual inspection, by bearing test index
-    7.2,
-    2.29,
-    2.36,
-    2.09,
-    1.36,
-    3.98
-]
-onset_truth_femto = [int(i * 6 * 60) for i in onset_truth_hr_femto]  # Number of measurements per hour
-
-config = dict(
-    feature_display_names=dict(
+FEAT_DISP_NMS = dict(
         rms_time='RMS in time',
         range_time='Range in time',
         kurtosis='Kurtosis in time',
@@ -42,17 +30,27 @@ config = dict(
         mean_freq='Mean in frequency',
         peak_freq='Frequency with max amplitude',
         rot_amp='Amplitude at rotating frequency'
-    ),
-    femto=dict(
-        sample_rate=25_600,
-        num_bearings=6,  # Number of roll bearings in training data, each corresponding to a run-to-failure trial
-        num_samples=25_600 // 10,  # 0.1 second of data
+    )
 
-        # Learned characteristics on the dataset
-        # Features fit for degradation detection
-        degrading_indicators=['rms_time', 'range_time', 'kurtosis', 'skewness'],
-        onset_truth=onset_truth_femto
-    ),
+# Respectively for 1-indexed [Test1 Bearing 3, Test1 Bearing 4, Test2 Bearing 1, Test3 Bearing 3]
+onsets_hr_ims_prev = [330, 330, 130, 1023]  # Output of previous method
+onsets_ims_prev = [i * 6 for i in onsets_hr_ims_prev]  # 10 minutes interval per measurement
+features_ims = list(FEAT_DISP_NMS.keys())
+
+onset_truth_hr_femto = [  # Rough ground truth as measurement index, through manual inspection, by bearing test index
+    4,
+    1,
+    0.75,
+    0.75,
+    1.3,
+    4
+]
+onset_truth_femto = [int(i * 6 * 60) for i in onset_truth_hr_femto]  # Number of measurements per hour
+features_femto = deepcopy(features_ims)
+features_femto.pop()
+
+config = dict(
+    feature_display_names=FEAT_DISP_NMS,
     ims=dict(
         sample_rate=20_000,
         num_bearings=4,
@@ -68,6 +66,8 @@ config = dict(
 
         # Learned characteristics on the dataset
         # Features fit for detecting degradation onset, selected by previous project
+        features=features_ims,
+        num_features=len(features_ims),
         degrading_indicators=['kurtosis', 'skewness', 'range_time', 'peak_freq'],
         prev_hyperparameters=dict(  # Selected for final output in previous project
             kurtosis=dict(sz_base=100, sz_window=30, z=3),
@@ -104,6 +104,18 @@ config = dict(
             2: {0: 710},
             3: {2: 6235}
         }
+    ),
+    femto=dict(
+        sample_rate=25_600,
+        num_bearings=6,  # Number of roll bearings in training data, each corresponding to a run-to-failure trial
+        num_samples=25_600 // 10,  # 0.1 second of data
+
+        # Learned characteristics on the dataset
+        # Features fit for degradation detection
+        features=features_femto,
+        num_features=len(features_femto),
+        degrading_indicators=['rms_time', 'range_time', 'kurtosis', 'skewness'],
+        onset_truth=onset_truth_femto
     )
 )
 

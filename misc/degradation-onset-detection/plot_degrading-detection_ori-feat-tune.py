@@ -1,3 +1,7 @@
+"""
+Use the previous degrading indicators selected, try to achieve a good degrading output on new dataset
+"""
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
@@ -15,12 +19,8 @@ if __name__ == '__main__':
     rec = VibRecordFemto()
     p = VibPredict()
 
-    # feat = 'kurtosis'
-    feat = 'skewness'
-    # feat = 'rms_time'
-
-    indicators_degrading = config('femto.degrading_indicators')
-    truth = config('femto.onset_truth')
+    indicators_degrading = config('ims.degrading_indicators')
+    truth = config('femto.onset_truth')  # As a rough guidance
 
     ic(indicators_degrading, truth)
     for idx_brg in range(rec.NUM_BRG_TST):
@@ -32,9 +32,6 @@ if __name__ == '__main__':
             axs[idx].plot(x, y, marker='o', markersize=0.5, linewidth=0.125)
 
             onset = p.degradation_onset_prev_(y, sz_base=200, sz_window=15, z=3)
-            # onset = p.degradation_onset_normal_dynamic(y)
-            # onset = p.degradation_onset_normal_dynamic_mean(y)
-            # onset = p.degradation_onset_normal_continuous_squash_mean(y)
             if onset != -1:
                 axs[idx].axvline(x=x[onset], color='r', label='Degradation onset detected',
                                  linewidth=0.5)
@@ -45,7 +42,7 @@ if __name__ == '__main__':
             axs[idx].set_title(feat_disp)
         plt.legend()
 
-        title = f'Degradation onset algorithm previous, updated hyper-parameter, test bearing {idx_brg + 1}'
+        title = f'FEMTO Degradation detection on previous indicators, tuned hyper-parameter, test bearing {idx_brg + 1}'
         plt.suptitle(title)
         ic(title)
         plt.savefig(f'plot/{title}', dpi=300)

@@ -9,25 +9,6 @@
         "peak_freq": "Frequency with max amplitude",
         "rot_amp": "Amplitude at rotating frequency"
     },
-    "femto": {
-        "sample_rate": 25600,
-        "num_bearings": 6,
-        "num_samples": 2560,
-        "degrading_indicators": [
-            "rms_time",
-            "range_time",
-            "kurtosis",
-            "skewness"
-        ],
-        "onset_truth": [
-            2592,
-            824,
-            849,
-            752,
-            489,
-            1432
-        ]
-    },
     "ims": {
         "sample_rate": 20000,
         "num_bearings": 4,
@@ -49,6 +30,17 @@
                 2
             ]
         },
+        "features": [
+            "rms_time",
+            "range_time",
+            "kurtosis",
+            "skewness",
+            "rms_freq",
+            "mean_freq",
+            "peak_freq",
+            "rot_amp"
+        ],
+        "num_features": 8,
         "degrading_indicators": [
             "kurtosis",
             "skewness",
@@ -147,5 +139,34 @@
                 "2": 6235
             }
         }
+    },
+    "femto": {
+        "sample_rate": 25600,
+        "num_bearings": 6,
+        "num_samples": 2560,
+        "features": [
+            "rms_time",
+            "range_time",
+            "kurtosis",
+            "skewness",
+            "rms_freq",
+            "mean_freq",
+            "peak_freq"
+        ],
+        "num_features": 7,
+        "degrading_indicators": [
+            "rms_time",
+            "range_time",
+            "kurtosis",
+            "skewness"
+        ],
+        "onset_truth": [
+            1440,
+            360,
+            270,
+            270,
+            468,
+            1440
+        ]
     }
 }
