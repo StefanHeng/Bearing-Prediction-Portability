@@ -3,7 +3,7 @@ import numpy as np
 from icecream import ic
 
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtractFemto
+from vib_extract_femto import VibExtractFemto
 from vib_record_femto import VibRecordFemto
 
 if __name__ == '__main__':

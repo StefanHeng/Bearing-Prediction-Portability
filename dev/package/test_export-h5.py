@@ -7,7 +7,7 @@ import os
 from icecream import ic
 
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtractFemto
+from vib_extract_femto import VibExtractFemto
 
 if __name__ == '__main__':
     exp = VibExportFemto()

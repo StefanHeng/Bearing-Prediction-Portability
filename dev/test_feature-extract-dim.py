@@ -1,5 +1,5 @@
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtractFemto
+from vib_extract_femto import VibExtractFemto
 
 from icecream import ic
 

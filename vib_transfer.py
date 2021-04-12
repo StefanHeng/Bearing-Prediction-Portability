@@ -2,7 +2,9 @@ import numpy as np
 
 from math import tanh
 from scipy.stats import linregress, shapiro, normaltest, anderson, norm
+from scipy.stats import kurtosis as kurt, skew
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from unidip import UniDip
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -117,13 +119,13 @@ class VibTransfer:
         """ Returns true if the data is considered normal by Shapiro-Wilk Test
         """
         stat, p = shapiro(vals)
-        ic(p)
+        # ic(p)
         return p > alpha
 
     @staticmethod
     def normality_DAgostinoK2(vals, alpha=0.05):
         stat, p = normaltest(vals)
-        ic(p)
+        # ic(p)
         return p > alpha
 
     @staticmethod
@@ -132,13 +134,12 @@ class VibTransfer:
         crit_vals: np.ndarray
         sign_lvs: np.ndarray
         idx = list(sign_lvs).index(sign_lv * 100)  # Get the corresponding percentage
-        ic(statistic, crit_vals[idx], sign_lvs[idx])
+        # ic(statistic, crit_vals[idx], sign_lvs[idx])
         return statistic < sign_lvs[idx]
 
     @staticmethod
     def normality_visual(vals, title='', save=False):
         """ Shows the histogram and Q-Q plot """
-        ic(vals)
         fig, axes = plt.subplots(1, 2, figsize=(12, 5), constrained_layout=True)
         # plt.hist(vals, ax=axes[0])
         # qqplot(vals, line='s', marker='o', markersize=0.5, plot=axes[1])
@@ -146,8 +147,7 @@ class VibTransfer:
         # sns.distplot(vals, ax=axes[0])
         axes[0].hist(vals, bins=20, density=True, alpha=0.6)
         mu, std = norm.fit(vals)
-        ic(mu, std)
-        x = np.linspace(mu - 3*std, mu + 3*std, 100)
+        x = np.linspace(mu - 3 * std, mu + 3 * std, 100)
         axes[0].plot(x, norm.pdf(x, mu, std), c='r', lw=1)
         axes[0].set_title('Histogram with normal distribution fit')
 
@@ -165,7 +165,45 @@ class VibTransfer:
         # qqplot(vals, line='s', marker='o', markersize=0.5)
         plt.suptitle(title)
         if save:
-            plt.savefig(f'plot/{save}')
+            plt.savefig(f'plot/{title}')
         else:
             plt.show()
 
+    @staticmethod
+    def trend_normal_enough(vals, alpha_m=0.05, t_s=4, z=None):
+        """
+        Checks if the data is symmetric and uni-modal
+
+        .. note::
+
+        :param vals: 1 dimensional data
+        :param alpha_m: Confidence required to be a mode, as opposed to outlier, by Hartigan's dip test for modality
+        :param t_s: Threshold for absolute value of skewness
+        :param z: If z is specified as standard deviation multiplier, outliers on both extremes are removed
+        :return:
+        """
+        # k = kurt(vals)
+        num_interval = len(UniDip(vals, alpha=alpha_m, ntrials=10).run())
+        if z is not None:
+            m = vals.mean()
+            rang = vals.std() * z
+            within_range = (m - rang < vals) & (vals < m + rang)
+            size_ori = vals.size
+            vals = vals[within_range]
+            assert size_ori - vals.size <= size_ori * 0.03  # Make sure only a small fraction of outliers are removed
+        s = skew(vals)
+        return num_interval == 1 and abs(s) < t_s
+
+    @staticmethod
+    def degradation_onset_in_good_range(vals, onset, r_mid=0.5, r_d=0.25):
+        """
+        :param vals: 1 dimensional data
+        :param onset: Index in `vals` on a degradation onset
+        :param r_mid: Ratio in [0, 1] as bounds on where the onset occurs in the middle
+        :param r_d: Ratio in [0, 1] as lowerbound on the length of degrading stage
+        :return:
+        """
+        sz = vals.size
+        mid = sz / 2
+        mid_rang = sz * r_mid
+        return mid - mid_rang <= onset <= mid + mid_rang and (sz - onset) >= sz * r_d

@@ -60,11 +60,11 @@ if __name__ == '__main__':
     # a = np.array([1])
     # ic(a.std())
 
-    # a = np.arange(12).astype(np.float16) - 5
-    # ic(a.dtype, a)
-    # # m = (a < 4) | (a % 2 == 1)
-    # # m = (a <= 20) | (a >= 10)
-    # # ic(m, type(m), m.sum())
+    a = np.arange(12).astype(np.float16) - 5
+    ic(a.dtype, a)
+    m = (a < 4) | (a % 2 == 1)
+    m = (a <= 20) | (a >= 10)
+    ic(m, type(m), m.sum())
     # idxs = np.where(a <= -3)[0]
     # ic(idxs, type(idxs))
     # ic(a[idxs])
@@ -87,9 +87,9 @@ if __name__ == '__main__':
     # stats.probplot(train, plot=ax[1])
     # plt.show()
 
-    import numpy as np
-    from scipy import stats
-    import matplotlib.pyplot as plt
+    # import numpy as np
+    # from scipy import stats
+    # import matplotlib.pyplot as plt
 
     # nsample = 100
     # np.random.seed(7654321)
@@ -109,19 +109,29 @@ if __name__ == '__main__':
     # data = np.random.normal(0, 1, 1000)
 
     # _, bins, _ = plt.hist(data, 20, density=1, alpha=0.5)
-    from scipy.stats import norm
+    # from scipy.stats import norm
+    #
+    # data = norm.rvs(10.0, 2.5, size=500)
+    # mu, std = norm.fit(data)
+    # plt.hist(data, bins=25, density=True, alpha=0.6, color='g')
+    # xmin, xmax = plt.xlim()
+    # x = np.linspace(xmin, xmax, 100)
+    # p = norm.pdf(x, mu, std)
+    # plt.plot(x, p, 'k', linewidth=2)
+    # title = "Fit results: mu = %.2f,  std = %.2f" % (mu, std)
+    # plt.title(title)
+    #
+    # plt.show()
 
-    data = norm.rvs(10.0, 2.5, size=500)
-    mu, std = norm.fit(data)
-    plt.hist(data, bins=25, density=True, alpha=0.6, color='g')
-    xmin, xmax = plt.xlim()
-    x = np.linspace(xmin, xmax, 100)
-    p = norm.pdf(x, mu, std)
-    plt.plot(x, p, 'k', linewidth=2)
-    title = "Fit results: mu = %.2f,  std = %.2f" % (mu, std)
-    plt.title(title)
-
-    plt.show()
+    # from unidip import UniDip
+    # # create bi-modal distribution
+    # # dat = np.concatenate([np.random.randn(200) - 3, np.random.randn(200) + 3])
+    # dat = np.random.randn(200) + 3
+    # # sort data so returned indices are meaningful
+    # # dat = np.msort(dat)
+    # # get start and stop indices of peaks
+    # intervals = UniDip(dat).run()
+    # ic(len(intervals))
 
 
 

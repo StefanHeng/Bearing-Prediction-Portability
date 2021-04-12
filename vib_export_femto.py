@@ -8,7 +8,7 @@ import json
 from icecream import ic
 
 from dev_link import *
-from vib_extract import VibExtractFemto
+from vib_extract_femto import VibExtractFemto
 
 
 class VibExportFemto:
