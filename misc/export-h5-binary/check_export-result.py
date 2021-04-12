@@ -3,7 +3,7 @@ import numpy as np
 from icecream import ic
 
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtract
+from vib_extract import VibExtractFemto
 from vib_record_femto import VibRecordFemto
 
 if __name__ == '__main__':
@@ -12,5 +12,5 @@ if __name__ == '__main__':
     ic(series, series.shape)
 
     exp = VibExportFemto()
-    extr = VibExtract
+    extr = VibExtractFemto
     assert np.array_equal(series, exp.get_feature_series(0, extr.rms_time))

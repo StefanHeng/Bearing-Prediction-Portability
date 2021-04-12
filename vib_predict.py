@@ -18,7 +18,7 @@ class VibPredict:
     MIN_SZ_BASE = 100
 
     def __init__(self):
-        self.params_prev = config('ims.prev_hyperparameters')
+        self.params_prev = config('ims.degrading_hyperparameters')
         ic(self.params_prev)
 
     def degradation_onset_prev_(self, series, sz_base=100, sz_window=30, z=3, prev_tuned=None):

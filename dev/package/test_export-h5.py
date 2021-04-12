@@ -7,11 +7,11 @@ import os
 from icecream import ic
 
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtract
+from vib_extract import VibExtractFemto
 
 if __name__ == '__main__':
     exp = VibExportFemto()
-    extr = VibExtract()
+    extr = VibExtractFemto()
     n = 0
     idx_brg = 0
     # series = exp.get_feature_series(idx_brg, extr.rms_time)

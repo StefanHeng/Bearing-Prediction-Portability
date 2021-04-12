@@ -1,11 +1,11 @@
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtract
+from vib_extract import VibExtractFemto
 
 from icecream import ic
 
 if __name__ == '__main__':
     exp = VibExportFemto()
-    extr = VibExtract()
+    extr = VibExtractFemto()
     n = 0
     idx_brg = 0
     vals = exp.get_vib_values(n, idx_brg, acc='v')

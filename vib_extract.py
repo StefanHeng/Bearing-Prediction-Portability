@@ -4,11 +4,10 @@ from scipy.stats import kurtosis as kurt, skew
 from scipy.signal import periodogram
 
 # from icecream import ic
+from util import *
 
-from femto_attrs import *
 
-
-class VibExtract:
+class VibExtractFemto:
     """ Feature extraction function library on vibration signals
 
     Given vibration samples of `np.ndarray`, VibExtr supports the following properties on the first axis,
@@ -19,7 +18,7 @@ class VibExtract:
     In frequency domain: RMS, Frequency with max amplitude, Mean, Rotating frequency
     """
 
-    def __init__(self, num_data=N_SPL, fqs=SPL_RT):
+    def __init__(self, num_data=config('femto.num_measurements'), fqs=config('femto.sample_rate')):
         """
         :param num_data: Number of observations for a single data file
         """

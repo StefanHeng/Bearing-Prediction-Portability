@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 from icecream import ic
 
 from vib_export_femto import VibExportFemto
-from vib_extract import VibExtract
+from vib_extract import VibExtractFemto
 
 if __name__ == '__main__':
     exp = VibExportFemto()
-    extr = VibExtract()
+    extr = VibExtractFemto()
     # ic(exp.NUMS_FL)
     n = 0
     idx_brg = 0

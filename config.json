@@ -18,18 +18,6 @@
             6324
         ],
         "num_samples": 20480,
-        "bearings_failed": {
-            "0": [
-                2,
-                3
-            ],
-            "1": [
-                0
-            ],
-            "2": [
-                2
-            ]
-        },
         "features": [
             "rms_time",
             "range_time",
@@ -47,7 +35,7 @@
             "range_time",
             "peak_freq"
         ],
-        "prev_hyperparameters": {
+        "degrading_hyperparameters": {
             "kurtosis": {
                 "sz_base": 100,
                 "sz_window": 30,
@@ -69,7 +57,19 @@
                 "z": 5
             }
         },
-        "prev_onsets": {
+        "bearings_failed": {
+            "0": [
+                2,
+                3
+            ],
+            "1": [
+                0
+            ],
+            "2": [
+                2
+            ]
+        },
+        "degrading_onsets_prev": {
             "0": {
                 "2": 1980,
                 "3": 1980
@@ -81,7 +81,7 @@
                 "2": 6138
             }
         },
-        "prev_onsets_detected_by_feature": {
+        "degrading_onsets_by_feature_detected": {
             "0": {
                 "2": {
                     "kurtosis": 1797,
@@ -127,7 +127,7 @@
                 }
             }
         },
-        "prev_onsets_detected": {
+        "degrading_onsets_detected": {
             "0": {
                 "2": 1816,
                 "3": 1457
@@ -142,8 +142,16 @@
     },
     "femto": {
         "sample_rate": 25600,
-        "num_bearings": 6,
+        "num_tests": 6,
         "num_samples": 2560,
+        "num_measurements": [
+            2803,
+            871,
+            911,
+            797,
+            515,
+            1637
+        ],
         "features": [
             "rms_time",
             "range_time",
@@ -154,12 +162,6 @@
             "peak_freq"
         ],
         "num_features": 7,
-        "degrading_indicators": [
-            "rms_time",
-            "range_time",
-            "kurtosis",
-            "skewness"
-        ],
         "onset_truth": [
             1440,
             360,
@@ -167,6 +169,144 @@
             270,
             468,
             1440
-        ]
+        ],
+        "degrading_hyperparameters_prev": {
+            "kurtosis": {
+                "sz_base": 60,
+                "sz_window": 15,
+                "z": 3
+            },
+            "skewness": {
+                "sz_base": 60,
+                "sz_window": 15,
+                "z": 2
+            },
+            "range_time": {
+                "sz_base": 60,
+                "sz_window": 25,
+                "z": 2
+            },
+            "peak_freq": {
+                "sz_base": 60,
+                "sz_window": 45,
+                "z": 1.5
+            }
+        },
+        "degrading_onsets_by_feature_prev": {
+            "0": {
+                "kurtosis": 407,
+                "peak_freq": 354,
+                "range_time": 1404,
+                "skewness": 778
+            },
+            "1": {
+                "kurtosis": -1,
+                "peak_freq": 747,
+                "range_time": 824,
+                "skewness": 113
+            },
+            "2": {
+                "kurtosis": 833,
+                "peak_freq": 118,
+                "range_time": 825,
+                "skewness": 901
+            },
+            "3": {
+                "kurtosis": 741,
+                "peak_freq": 196,
+                "range_time": 222,
+                "skewness": 743
+            },
+            "4": {
+                "kurtosis": 476,
+                "peak_freq": 501,
+                "range_time": 469,
+                "skewness": 476
+            },
+            "5": {
+                "kurtosis": 1430,
+                "peak_freq": 74,
+                "range_time": 1425,
+                "skewness": 115
+            }
+        },
+        "degrading_onsets_prev": {
+            "0": 1404,
+            "1": 824,
+            "2": 901,
+            "3": 743,
+            "4": 501,
+            "5": 1430
+        },
+        "degrading_indicators_new": [
+            "range_time",
+            "mean_freq",
+            "peak_freq"
+        ],
+        "degrading_hyperparameters_new": {
+            "range_time": {
+                "sz_base": 60,
+                "sz_window": 25,
+                "z": 2
+            },
+            "mean_freq": {
+                "sz_base": 60,
+                "sz_window": 30,
+                "z": 2
+            },
+            "peak_freq": {
+                "sz_base": 60,
+                "sz_window": 45,
+                "z": 1.5
+            }
+        },
+        "degrading_onsets_by_feature_new": {
+            "0": {
+                "mean_freq": 440,
+                "peak_freq": 354,
+                "range_time": 1404
+            },
+            "1": {
+                "mean_freq": 115,
+                "peak_freq": 747,
+                "range_time": 824
+            },
+            "2": {
+                "mean_freq": 112,
+                "peak_freq": 118,
+                "range_time": 825
+            },
+            "3": {
+                "mean_freq": 160,
+                "peak_freq": 196,
+                "range_time": 222
+            },
+            "4": {
+                "mean_freq": 473,
+                "peak_freq": 501,
+                "range_time": 469
+            },
+            "5": {
+                "mean_freq": 175,
+                "peak_freq": 74,
+                "range_time": 1425
+            }
+        },
+        "degrading_onsets_new": {
+            "0": 1404,
+            "1": 824,
+            "2": 825,
+            "3": 222,
+            "4": 501,
+            "5": 1425
+        },
+        "degrading_onsets_new_subset": {
+            "0": 440,
+            "1": 747,
+            "2": 118,
+            "3": 196,
+            "4": 473,
+            "5": 175
+        }
     }
 }

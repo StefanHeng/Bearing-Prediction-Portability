@@ -1,5 +1,6 @@
 """
-Use the previous degrading indicators selected, try to achieve a good degrading output on new dataset by tuning
+Pick my own degrading indicators based on previous criteria,
+still, try to achieve a good degrading output on new dataset by tuning
 """
 
 import matplotlib.pyplot as plt
@@ -19,24 +20,23 @@ if __name__ == '__main__':
     rec = VibRecordFemto()
     p = VibPredict()
 
-    indicators_degrading = config('ims.degrading_indicators')
+    indicators_degrading_new = ['range_time', 'mean_freq', 'peak_freq']
     truth = config('femto.onset_truth')  # As a rough guidance
     params = dict(
-        kurtosis=dict(sz_base=60, sz_window=15, z=3),
-        skewness=dict(sz_base=60, sz_window=15, z=2),
         range_time=dict(sz_base=60, sz_window=25, z=2),
-        peak_freq=dict(sz_base=60, sz_window=45, z=1.5)  # Only the upperbound is checked for detection
+        # kurtosis=dict(sz_base=60, sz_window=15, z=3),
+        mean_freq=dict(sz_base=60, sz_window=30, z=2),
+        peak_freq=dict(sz_base=60, sz_window=45, z=1.5)
     )
-    acc = 'hori'
     onsets = dict()
 
-    ic(indicators_degrading, truth)
+    ic(indicators_degrading_new, truth)
     for idx_tst in range(rec.NUM_BRG_TST):
-        fig, axs = plt.subplots(len(indicators_degrading), figsize=(16, 12), constrained_layout=True)
-        for idx, feat in enumerate(indicators_degrading):
+        fig, axs = plt.subplots(len(indicators_degrading_new), figsize=(16, 12), constrained_layout=True)
+        for idx, feat in enumerate(indicators_degrading_new):
             feat_disp = rec.FEAT_DISP_NMS[feat]
             x = rec.get_time_axis(idx_brg=idx_tst)
-            y = rec.get_feature_series(idx_tst, feat=feat, acc=acc)
+            y = rec.get_feature_series(idx_tst, feat=feat)
             axs[idx].plot(x, y, marker='o', markersize=0.5, lw=0.125)
 
             onset = p.degradation_onset_prev_(y, **params[feat])
@@ -53,8 +53,7 @@ if __name__ == '__main__':
             onsets[idx_tst][feat] = onset
         plt.legend()
 
-        title = f'FEMTO Degradation detection on previous indicators, tuned hyper-parameter, ' \
-                f'test bearing {idx_tst + 1}, {acc}'
+        title = f'FEMTO Degradation detection on new indicators, tuned hyper-parameter, test bearing {idx_tst + 1}'
         plt.suptitle(title)
         ic(title)
         plt.savefig(f'plot/{title}', dpi=300)

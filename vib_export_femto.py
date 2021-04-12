@@ -8,7 +8,7 @@ import json
 from icecream import ic
 
 from dev_link import *
-from vib_extract import VibExtract
+from vib_extract import VibExtractFemto
 
 
 class VibExportFemto:
@@ -78,7 +78,7 @@ class VibExportFemto:
     def export(self, fl_nm='femto_features_train', num_spl=N_SPL, spl_rt=SPL_RT):
         """ One group for each bearing test, with all the properties by horizontal/vertical
         """
-        extr = VibExtract(num_spl, spl_rt)
+        extr = VibExtractFemto(num_spl, spl_rt)
         fl_nm = f'data/{fl_nm}.hdf5'
         open(fl_nm, 'a').close()  # Create file in OS
         fl = h5py.File(fl_nm, 'w')
