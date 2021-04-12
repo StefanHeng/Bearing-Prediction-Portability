@@ -35,7 +35,7 @@ if __name__ == '__main__':
         fig, axs = plt.subplots(len(indicators_degrading_new), figsize=(16, 12), constrained_layout=True)
         for idx, feat in enumerate(indicators_degrading_new):
             feat_disp = rec.FEAT_DISP_NMS[feat]
-            x = rec.get_time_axis(idx_brg=idx_tst)
+            x = rec.get_time_axis(idx_tst=idx_tst)
             y = rec.get_feature_series(idx_tst, feat=feat)
             axs[idx].plot(x, y, marker='o', markersize=0.5, lw=0.125)
 

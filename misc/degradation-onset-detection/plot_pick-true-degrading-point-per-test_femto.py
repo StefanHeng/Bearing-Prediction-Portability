@@ -24,7 +24,7 @@ if __name__ == '__main__':
         fig, axs = plt.subplots(num_feat, figsize=(16, 12), constrained_layout=True)
         for idx, (feat, feat_disp) in enumerate(rec.FEAT_DISP_NMS.items()):
             # ic(idx, (feat, feat_disp))
-            x = rec.get_time_axis(idx_brg=idx_brg)
+            x = rec.get_time_axis(idx_tst=idx_brg)
             y = rec.get_feature_series(idx_brg, feat=feat)
             axs[idx].plot(x, y, marker='o', markersize=0.5, lw=0.125)
 

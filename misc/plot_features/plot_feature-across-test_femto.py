@@ -25,7 +25,7 @@ if __name__ == '__main__':
         fig, axs = plt.subplots(rec.NUM_BRG_TST, figsize=(16, 12), constrained_layout=True)
         for idx_tst in range(rec.NUM_BRG_TST):
             feat_disp = rec.FEAT_DISP_NMS[feat]
-            x = rec.get_time_axis(idx_brg=idx_tst)
+            x = rec.get_time_axis(idx_tst=idx_tst)
             y = rec.get_feature_series(idx_tst, feat=feat)
             axs[idx_tst].plot(x, y, marker='o', markersize=0.5, lw=0.125, label='Observed values')
             axs[idx_tst].xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))

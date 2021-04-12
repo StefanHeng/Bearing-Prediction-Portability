@@ -12,4 +12,7 @@ e.g. Transfer Learning.
 ## Reference 
 1. A. Saxena and K. Goebel (2008). "PHM08 Challenge Data Set", NASA Ames Prognostics Data Repository 
    (http://ti.arc.nasa.gov/project/prognostic-data-repository), NASA Ames Research Center, Moffett Field, CA
+2.  J. Lee, H. Qiu, G. Yu, J. Lin, and Rexnord Technical Services (2007).
+        IMS, University of Cincinnati. "Bearing Data Set", NASA Ames Prognostics Data Repository
+        (http://ti.arc.nasa.gov/project/prognostic-data-repository), NASA Ames Research Center, Moffett Field, CA
    

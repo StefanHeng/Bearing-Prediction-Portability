@@ -131,6 +131,7 @@ config = dict(
         # The first row for features in the time domain was removed in previous project
         num_measurements=[2_156, 984, 6_324],
         num_samples=20_480,  # Number of data points in each measurement file
+        bearings_failed=bearings_failed_ims,
 
         # Learned characteristics on the dataset
         # Features fit for detecting degradation onset, selected by previous project
@@ -143,7 +144,6 @@ config = dict(
             range_time=dict(sz_base=100, sz_window=30, z=5),
             peak_freq=dict(sz_base=100, sz_window=25, z=5)  # Only the upperbound is checked for detection
         ),
-        bearings_failed=bearings_failed_ims,
         degrading_onsets_prev=get_degrading_onsets_prev_ims(),
         # degrading_onsets_prev={   # Output quoted from previous project
         #     0: {

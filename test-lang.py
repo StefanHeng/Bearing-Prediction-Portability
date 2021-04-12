@@ -60,16 +60,68 @@ if __name__ == '__main__':
     # a = np.array([1])
     # ic(a.std())
 
-    a = np.arange(12).astype(np.float16) - 5
-    ic(a.dtype, a)
-    # m = (a < 4) | (a % 2 == 1)
-    # m = (a <= 20) | (a >= 10)
-    # ic(m, type(m), m.sum())
-    idxs = np.where(a <= -3)[0]
-    ic(idxs, type(idxs))
-    ic(a[idxs])
-    idxs2 = np.where(a >= 3)[0]
-    ic(idxs2)
-    ic(np.concatenate([idxs, idxs2]))
+    # a = np.arange(12).astype(np.float16) - 5
+    # ic(a.dtype, a)
+    # # m = (a < 4) | (a % 2 == 1)
+    # # m = (a <= 20) | (a >= 10)
+    # # ic(m, type(m), m.sum())
+    # idxs = np.where(a <= -3)[0]
+    # ic(idxs, type(idxs))
+    # ic(a[idxs])
+    # idxs2 = np.where(a >= 3)[0]
+    # ic(idxs2)
+    # ic(np.concatenate([idxs, idxs2]))
+
+    # import matplotlib.pyplot as plt
+    # import seaborn as sns
+    # from scipy import stats
+    #
+    # train = [1, 2, 2, 3, 3, 3, 4, 4, 4, 5, 6] * 2
+    #
+    # fig, ax = plt.subplots(1, 2)
+    #
+    # # Distribution from seaborn
+    # sns.distplot(train, ax=ax[0])
+    #
+    # # QQ-plot plot from stats
+    # stats.probplot(train, plot=ax[1])
+    # plt.show()
+
+    import numpy as np
+    from scipy import stats
+    import matplotlib.pyplot as plt
+
+    # nsample = 100
+    # np.random.seed(7654321)
+    #
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111)
+    # x = stats.t.rvs(3, size=nsample)
+    # res = stats.probplot(x, plot=plt)
+    #
+    # ax.get_lines()[0].set_marker('p')
+    # ax.get_lines()[0].set_markerfacecolor('r')
+    # ax.get_lines()[0].set_markersize(12.0)
+    # ax.get_lines()[1].set_linewidth(12.0)
+
+    # plt.show()
+
+    # data = np.random.normal(0, 1, 1000)
+
+    # _, bins, _ = plt.hist(data, 20, density=1, alpha=0.5)
+    from scipy.stats import norm
+
+    data = norm.rvs(10.0, 2.5, size=500)
+    mu, std = norm.fit(data)
+    plt.hist(data, bins=25, density=True, alpha=0.6, color='g')
+    xmin, xmax = plt.xlim()
+    x = np.linspace(xmin, xmax, 100)
+    p = norm.pdf(x, mu, std)
+    plt.plot(x, p, 'k', linewidth=2)
+    title = "Fit results: mu = %.2f,  std = %.2f" % (mu, std)
+    plt.title(title)
+
+    plt.show()
+
 
 

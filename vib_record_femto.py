@@ -25,14 +25,15 @@ class VibRecordFemto:
         # List of bearing training test; Use as indices into h5 file
         self.BRG_NMS = json.loads(self.record.attrs['brg_nms'])
         self.NUMS_MSR = json.loads(self.record.attrs['nums_msr'])  # Number of measurement for each bearing by index
-        ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.BRG_NMS, self.NUMS_MSR)
+        # ic(self.FEAT_STOR_IDXS, self.FEAT_DISP_NMS, self.BRG_NMS, self.NUMS_MSR)
+        ic(self.NUMS_MSR)
         self.NUM_BRG_TST = len(self.BRG_NMS)
         self.NUM_FEAT = len(self.FEAT_STOR_IDXS)
 
-    def get_feature_series(self, idx_brg, feat='rms_time', acc='hori'):
+    def get_feature_series(self, idx_tst, feat='rms_time', acc='hori'):
         """
         :param feat: Feature/Property
-        :param idx_brg: The bearing test specified by index
+        :param idx_tst: The bearing test specified by index
         :param acc: Specified horizontal or vertical acceleration
         :return: Array of the feature in question across the entire bearing test, in sequential time
         """
@@ -42,21 +43,21 @@ class VibRecordFemto:
             acc = 'vert'
         elif acc == 'h':
             acc = 'hori'
-        return self.record[f'{self.BRG_NMS[idx_brg]}/{acc}'][self.FEAT_STOR_IDXS[feat]]
+        return self.record[f'{self.BRG_NMS[idx_tst]}/{acc}'][self.FEAT_STOR_IDXS[feat]]
 
-    def get_time_axis(self, strt=0, end=-1, inc=10, idx_brg=None):
+    def get_time_axis(self, strt=0, end=-1, inc=10, idx_tst=None):
         """
         :param strt: Index corresponding to start time by multiplying inc
         :param end: Index corresponding to end time by multiplying inc
         :param inc: Difference between 2 consecutive time stamps, in seconds
-        :param idx_brg: Index of bearing test, if specified, the time axis range is inferred with the full test duration
+        :param idx_tst: Index of bearing test, if specified, the time axis range is inferred with the full test duration
         :return: Inclusive-exclusive pandas time stamps
 
         .. note:: Time stamps are with respect to epoch time,
         since plotting libraries don't support plotting `timedelta`s
         """
-        if idx_brg is not None:
-            x = np.arange(self.NUMS_MSR[idx_brg])
+        if idx_tst is not None:
+            x = np.arange(self.NUMS_MSR[idx_tst])
         else:
             x = np.arange(strt, end)
         return pd.to_datetime(pd.Series(x * inc), unit='s')

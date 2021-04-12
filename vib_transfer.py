@@ -1,10 +1,13 @@
 import numpy as np
 
 from math import tanh
-from scipy.stats import linregress
+from scipy.stats import linregress, shapiro, normaltest, anderson, norm
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 
 import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import probplot
+from statsmodels.graphics.gofplots import qqplot
 from icecream import ic
 
 
@@ -93,8 +96,6 @@ class VibTransfer:
         x = np.arange(N)
         idxs = x[min_split_sz:N - min_split_sz + 1]
 
-
-
     @staticmethod
     def _rmse(x, y, m, b):
         """ Root mean squared error """
@@ -110,3 +111,61 @@ class VibTransfer:
     @staticmethod
     def mape(x, y, m, b):
         return mean_absolute_percentage_error(y, m * x + b)
+
+    @staticmethod
+    def normality_ShapiroWilk(vals, alpha=0.05):
+        """ Returns true if the data is considered normal by Shapiro-Wilk Test
+        """
+        stat, p = shapiro(vals)
+        ic(p)
+        return p > alpha
+
+    @staticmethod
+    def normality_DAgostinoK2(vals, alpha=0.05):
+        stat, p = normaltest(vals)
+        ic(p)
+        return p > alpha
+
+    @staticmethod
+    def normality_AndersonDarling(vals, sign_lv=0.05):
+        statistic, crit_vals, sign_lvs = anderson(vals)
+        crit_vals: np.ndarray
+        sign_lvs: np.ndarray
+        idx = list(sign_lvs).index(sign_lv * 100)  # Get the corresponding percentage
+        ic(statistic, crit_vals[idx], sign_lvs[idx])
+        return statistic < sign_lvs[idx]
+
+    @staticmethod
+    def normality_visual(vals, title='', save=False):
+        """ Shows the histogram and Q-Q plot """
+        ic(vals)
+        fig, axes = plt.subplots(1, 2, figsize=(12, 5), constrained_layout=True)
+        # plt.hist(vals, ax=axes[0])
+        # qqplot(vals, line='s', marker='o', markersize=0.5, plot=axes[1])
+
+        # sns.distplot(vals, ax=axes[0])
+        axes[0].hist(vals, bins=20, density=True, alpha=0.6)
+        mu, std = norm.fit(vals)
+        ic(mu, std)
+        x = np.linspace(mu - 3*std, mu + 3*std, 100)
+        axes[0].plot(x, norm.pdf(x, mu, std), c='r', lw=1)
+        axes[0].set_title('Histogram with normal distribution fit')
+
+        probplot(vals, plot=axes[1])
+        lines = axes[1].get_lines()[0]
+        lines.set_marker('o')
+        lines.set_markerfacecolor('r')
+        lines.set_markersize(0.5)
+        lines.set_linewidth(0.125)
+        axes[1].set_title('Q-Q plot')
+
+        # plt.subplot(1, 2, 1)
+        # plt.hist(vals)
+        # plt.subplot(1, 2, 2)
+        # qqplot(vals, line='s', marker='o', markersize=0.5)
+        plt.suptitle(title)
+        if save:
+            plt.savefig(f'plot/{save}')
+        else:
+            plt.show()
+
