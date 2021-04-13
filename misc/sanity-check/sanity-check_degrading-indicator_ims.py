@@ -1,5 +1,6 @@
 """
-Sanity check on refined final output of FEMTO degradation times
+Sanity check on the trend in the healthy stage, based on refined final output of FEMTO degradation times,
+to confirm degrading indicator selection
 """
 
 from scipy.stats import kurtosis as kurt, skew

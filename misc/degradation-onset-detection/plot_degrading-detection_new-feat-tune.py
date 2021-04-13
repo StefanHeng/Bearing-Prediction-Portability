@@ -22,11 +22,11 @@ if __name__ == '__main__':
 
     indicators_degrading_new = ['range_time', 'mean_freq', 'peak_freq']
     truth = config('femto.onset_truth')  # As a rough guidance
-    params = dict(
+    params = dict(  # TODO: these tuning are discarded after reflection, treat those in config file as the final params
         range_time=dict(sz_base=60, sz_window=25, z=2),
         # kurtosis=dict(sz_base=60, sz_window=15, z=3),
-        mean_freq=dict(sz_base=60, sz_window=30, z=2),
-        peak_freq=dict(sz_base=60, sz_window=45, z=1.5)
+        mean_freq=dict(sz_base=50, sz_window=30, z=2),
+        peak_freq=dict(sz_base=50, sz_window=50, z=1)
     )
     onsets = dict()
 

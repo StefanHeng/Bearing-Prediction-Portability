@@ -1,5 +1,4 @@
 import json
-from icecream import ic
 
 
 def config(attr):

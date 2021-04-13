@@ -18,6 +18,18 @@
             6324
         ],
         "num_samples": 20480,
+        "bearings_failed": {
+            "0": [
+                2,
+                3
+            ],
+            "1": [
+                0
+            ],
+            "2": [
+                2
+            ]
+        },
         "features": [
             "rms_time",
             "range_time",
@@ -56,18 +68,6 @@
                 "sz_window": 25,
                 "z": 5
             }
-        },
-        "bearings_failed": {
-            "0": [
-                2,
-                3
-            ],
-            "1": [
-                0
-            ],
-            "2": [
-                2
-            ]
         },
         "degrading_onsets_prev": {
             "0": {

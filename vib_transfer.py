@@ -180,7 +180,6 @@ class VibTransfer:
         :param alpha_m: Confidence required to be a mode, as opposed to outlier, by Hartigan's dip test for modality
         :param t_s: Threshold for absolute value of skewness
         :param z: If z is specified as standard deviation multiplier, outliers on both extremes are removed
-        :return:
         """
         # k = kurt(vals)
         num_interval = len(UniDip(vals, alpha=alpha_m, ntrials=10).run())
@@ -195,15 +194,22 @@ class VibTransfer:
         return num_interval == 1 and abs(s) < t_s
 
     @staticmethod
-    def degradation_onset_in_good_range(vals, onset, r_mid=0.5, r_d=0.25):
+    def evaluate_degradation_onset(tst_sz, onset, r=0.13):
         """
-        :param vals: 1 dimensional data
-        :param onset: Index in `vals` on a degradation onset
-        :param r_mid: Ratio in [0, 1] as bounds on where the onset occurs in the middle
-        :param r_d: Ratio in [0, 1] as lowerbound on the length of degrading stage
-        :return:
+        # :return: Whether onset index is within range of starting and ending ratios relative to length of test
+        :returnL Whether the degrading stage has long enough data by ratio in [0, 1]
         """
-        sz = vals.size
-        mid = sz / 2
-        mid_rang = sz * r_mid
-        return mid - mid_rang <= onset <= mid + mid_rang and (sz - onset) >= sz * r_d
+        # mid = tst_sz / 2
+        # mid_rang = tst_sz * r_mid
+        # in_mid_rang = mid - mid_rang <= onset <= mid + mid_rang
+        # long_enough_degrad = (tst_sz - onset) >= tst_sz * r_d
+        # if not verbose:
+        #     return in_mid_rang and long_enough_degrad
+        # else:
+        #     return in_mid_rang, long_enough_degrad
+
+        # r_s, r_e = r
+        # ic(tst_sz * r_s, onset, tst_sz * r_e)
+        # return tst_sz * r_s <= onset <= tst_sz * r_e
+        return tst_sz - onset > tst_sz * r
+
