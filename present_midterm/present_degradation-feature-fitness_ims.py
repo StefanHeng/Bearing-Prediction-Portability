@@ -15,7 +15,7 @@ from icecream import ic
 from vib_record_ims import VibRecordIms
 from vib_transfer import VibTransfer
 
-os.chdir('../..')
+os.chdir('..')
 
 if __name__ == "__main__":
     rec = VibRecordIms()

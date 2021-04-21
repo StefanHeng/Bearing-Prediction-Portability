@@ -61,3 +61,8 @@ class VibRecordFemto:
         else:
             x = np.arange(strt, end)
         return pd.to_datetime(pd.Series(x * inc), unit='s')
+
+    @staticmethod
+    def tst_nm(idx_tst):
+        """ 0-indexed bearing test """
+        return f'C{idx_tst//2 + 1}B{idx_tst%2 + 1}'

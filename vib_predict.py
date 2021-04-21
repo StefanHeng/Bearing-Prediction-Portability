@@ -163,7 +163,7 @@ class VibPredict:
         degradation onset is defined by the first time when *all* health indicators starts degrading """
 
     @staticmethod
-    def sliding_means(arr, sz_window=30):
+    def sliding_means(arr, sz_window=30, strt=0):
         """ Mean is computed `sz_window` before all valid indices """
-        idxs = np.arange(sz_window, arr.size - 1)
-        return idxs, np.vectorize(lambda idx: arr[idx - sz_window:idx].mean())(idxs)
+        idxs = np.arange(strt, arr.size-1 - sz_window)
+        return idxs, np.vectorize(lambda idx: arr[idx:idx+sz_window].mean())(idxs)

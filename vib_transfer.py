@@ -138,18 +138,22 @@ class VibTransfer:
         return statistic < sign_lvs[idx]
 
     @staticmethod
-    def normality_visual(vals, title='', save=False):
+    def normality_visual(vals, title='', path=None, save=False, xlab=None):
         """ Shows the histogram and Q-Q plot """
-        fig, axes = plt.subplots(1, 2, figsize=(12, 5), constrained_layout=True)
+        fig, axes = plt.subplots(1, 2, figsize=(12, 5))
         # plt.hist(vals, ax=axes[0])
         # qqplot(vals, line='s', marker='o', markersize=0.5, plot=axes[1])
 
         # sns.distplot(vals, ax=axes[0])
-        axes[0].hist(vals, bins=20, density=True, alpha=0.6)
+        axes[0].hist(vals, bins=20, density=True, alpha=0.6, label='Observed counts')
         mu, std = norm.fit(vals)
+        ic(mu, std)
         x = np.linspace(mu - 3 * std, mu + 3 * std, 100)
-        axes[0].plot(x, norm.pdf(x, mu, std), c='r', lw=1)
-        axes[0].set_title('Histogram with normal distribution fit')
+        axes[0].plot(x, norm.pdf(x, mu, std), c='r', lw=1, label='Normal distribution fit')
+        axes[0].set_title(f'Histogram of {xlab}')
+        axes[0].set_xlabel(f'{xlab}')
+        axes[0].set_ylabel(f'Probability density')
+        axes[0].legend()
 
         probplot(vals, plot=axes[1])
         lines = axes[1].get_lines()[0]
@@ -157,15 +161,19 @@ class VibTransfer:
         lines.set_markerfacecolor('r')
         lines.set_markersize(0.5)
         lines.set_linewidth(0.125)
-        axes[1].set_title('Q-Q plot')
+        axes[1].set_title('Normal Q-Q plot')
 
         # plt.subplot(1, 2, 1)
         # plt.hist(vals)
         # plt.subplot(1, 2, 2)
         # qqplot(vals, line='s', marker='o', markersize=0.5)
+        fig.tight_layout(pad=3)
         plt.suptitle(title)
         if save:
-            plt.savefig(f'plot/{title}')
+            if path is not None:
+                plt.savefig(f'{path}', dpi=300)
+            else:
+                plt.savefig(f'plot/{title}', dpi=300)
         else:
             plt.show()
 

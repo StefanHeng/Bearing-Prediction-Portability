@@ -41,7 +41,7 @@ class VibRecordIms:
 
     def get_feature_series(self, idx_tst, idx_brg, feat='rms_time'):
         """
-        :param idx_tst: Index for a test in [0, 3], specified by `VibRecordIms`
+        :param idx_tst: Index for a test in [0, 3]
         :param idx_brg: The bearing test specified by index
         :param feat: Feature/Property
         :return: Array of the feature in question across the entire bearing test, in sequential time
