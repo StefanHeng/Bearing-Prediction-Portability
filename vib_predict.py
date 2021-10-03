@@ -1,11 +1,20 @@
 import numpy as np
+from scipy.optimize import curve_fit
 
 from math import tanh
 
-from vib_transfer import VibTransfer
+# from vib_transfer import VibTransfer
 from util import *
 
 from icecream import ic
+
+
+def linear(x, a, b):
+    return a * x + b
+
+
+def exponential(x, a, b, c):
+    return a * np.exp(b * x) + c
 
 
 class VibPredict:
@@ -167,3 +176,7 @@ class VibPredict:
         """ Mean is computed `sz_window` before all valid indices """
         idxs = np.arange(strt, arr.size-1 - sz_window)
         return idxs, np.vectorize(lambda idx: arr[idx:idx+sz_window].mean())(idxs)
+
+    @staticmethod
+    def curve_fit_linear(arr):
+        pass

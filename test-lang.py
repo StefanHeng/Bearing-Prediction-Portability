@@ -2,11 +2,12 @@ import numpy as np
 from numpy.polynomial.polynomial import polyfit
 
 from collections import OrderedDict
+
+from math import tanh
 import json
 
 from icecream import ic
 
-from math import tanh
 
 if __name__ == '__main__':
     # ic(json.dumps(OrderedDict(b=2, a=1)))

@@ -36,7 +36,8 @@ if __name__ == '__main__':
     params = config('femto.degrading_hyperparameters_new')
     ic(onsets_truth, onsets_detected_new, params)
 
-    fig, ax = plt.subplots(1, figsize=(9, 3))
+    # fig, ax = plt.subplots(1, figsize=(9, 3))
+    fig, axes = plt.subplots(2, figsize=(9, 6), sharex=True, sharey=True)
 
     idx_tst = 1
     feat = 'range_time'
@@ -49,24 +50,28 @@ if __name__ == '__main__':
     prev_me = prev_stds * params[feat]['z']
 
     onset_t = onsets_truth[idx_tst]
+    axes[0].axvline(x=x[onset_t], color='g', label='Degradation onset manual ground truth', lw=0.5)
     onset_d = onsets_detected_new[str(idx_tst)][feat]
     if onset_d != -1:
-        ax.axvline(x=x[onset_d], color='r', label='Degradation onset detected', lw=0.5)
-    ax.axvline(x=x[onset_t], color='g', label='Degradation onset manual ground truth', lw=0.5)
+        axes[1].axvline(x=x[onset_d], color='r', label='Degradation onset detected', lw=0.5)
 
-    ax.plot(x, y, marker='o', markersize=0.25, lw=0.125, label=f'Observed trend')
-    ax.plot(x[idxs], means, c='purple', lw=0.5, label=f'Mean of moving window')
-    ax.plot(x[idxs_prev], prev_means, c='orange', lw=0.5, label=r'$[\bar{x} \pm zs]$ for historical values')
-    ax.fill_between(x[idxs_prev], prev_means-prev_me, prev_means+prev_me, facecolor='orange', alpha=0.3)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))
-    ax.legend()
-    ax.set_title(f'Run-to-failure test {rec.tst_nm(idx_tst)}: {feat_d} over time,'
-                 f' with sliding degradation detection range')
-    ax.set_xlabel('time (dd hh:mm)')
+    axes[0].plot(x, y, marker='o', markersize=0.5, lw=0.125, label=f'Observed trend')
+    axes[1].plot(x[idxs], means, c='purple', lw=0.5, label=f'Mean of moving window')
+    axes[1].plot(x[idxs_prev], prev_means, c='orange', lw=0.5, label=r'$[\bar{x} \pm zs]$ for historical values')
+    axes[1].fill_between(x[idxs_prev], prev_means-prev_me, prev_means+prev_me, facecolor='orange', alpha=0.3)
+    axes[0].xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))
+    axes[1].xaxis.set_major_formatter(mdates.DateFormatter(rec.T_FMT))
+    axes[0].legend()
+    axes[1].legend()
+    axes[0].set_title(f'Run-to-failure test {rec.tst_nm(idx_tst)}: {feat_d} over time')
+    axes[1].set_title(f'Run-to-failure test {rec.tst_nm(idx_tst)}: Degradation detected using {feat_d}')
+    axes[0].set_xlabel('time (dd hh:mm)')
+    axes[1].set_xlabel('time (dd hh:mm)')
+    axes[0].tick_params(labelbottom=True)
 
     title = f'Degenerate case on the FEMTO dataset_Range in time'
     # plt.suptitle(title)
     # plt.show()
-    # fig.tight_layout(pad=0)
-    plt.savefig(f'present_final-report/{title}.png', dpi=300, bbox_inches='tight')
+    fig.tight_layout(pad=2)
+    plt.savefig(f'present_final-report/{title}.png', dpi=300)
 
